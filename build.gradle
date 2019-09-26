@@ -47,6 +47,9 @@ ext {
     materialVersion = '1.0.0'
     annotationVersion = '1.0.1'
 
+    // Google Play Services
+    googlePlayServicesVersion = '17.0.0'
+
     // Others
     glideVersion = '4.8.0'
     circleimageviewVersion = '2.1.0'
