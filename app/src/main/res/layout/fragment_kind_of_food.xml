@@ -2,15 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/containerMain"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewKindOfFood"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/dp_60"
+        android:paddingEnd="@dimen/dp_60"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

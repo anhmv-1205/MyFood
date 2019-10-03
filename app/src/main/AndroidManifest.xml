@@ -24,7 +24,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
