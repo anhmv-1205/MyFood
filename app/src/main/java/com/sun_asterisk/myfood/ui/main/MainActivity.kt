@@ -1,15 +1,18 @@
-package com.sun_asterisk.myfood
+package com.sun_asterisk.myfood.ui.main
 
 import android.os.Bundle
 import com.google.android.gms.maps.MapFragment
+import com.sun_asterisk.myfood.R.id
+import com.sun_asterisk.myfood.R.layout
 import com.sun_asterisk.myfood.base.BaseActivity
+import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.ui.map.MapsFragment
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 
 class MainActivity : BaseActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_main)
+        setContentView(layout.activity_main)
         init()
     }
 
@@ -21,10 +24,10 @@ class MainActivity : BaseActivity() {
 
     private fun init() {
         addFragmentToActivity(
-            R.id.containerMain,
-            MapsFragment.newInstance(),
+            id.containerMain,
+            HomeFragment.newInstance(),
             false,
-            MapFragment::class.java.simpleName
+            HomeFragment::class.java.simpleName
         )
     }
 }
