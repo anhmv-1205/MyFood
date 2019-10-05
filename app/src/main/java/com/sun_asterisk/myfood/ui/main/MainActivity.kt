@@ -7,6 +7,7 @@ import com.sun_asterisk.myfood.R.layout
 import com.sun_asterisk.myfood.base.BaseActivity
 import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.ui.map.MapsFragment
+import com.sun_asterisk.myfood.ui.splash.SplashFragment
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 
 class MainActivity : BaseActivity() {
@@ -25,9 +26,9 @@ class MainActivity : BaseActivity() {
     private fun init() {
         addFragmentToActivity(
             id.containerMain,
-            HomeFragment.newInstance(),
+            SplashFragment.newInstance(),
             false,
-            HomeFragment::class.java.simpleName
+            SplashFragment::class.java.simpleName
         )
     }
 }

@@ -6,4 +6,5 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey500">#808080</color>
+    <color name="colorTextLogo">#B2B1B2</color>
 </resources>
