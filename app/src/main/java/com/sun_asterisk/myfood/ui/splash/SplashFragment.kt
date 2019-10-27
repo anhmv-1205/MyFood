@@ -10,8 +10,12 @@ import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.replaceFragment
+import org.koin.android.ext.android.inject
 
 class SplashFragment : BaseFragment() {
+
+    private val homeFragment: HomeFragment by inject()
+
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         onHideSoftKeyBoard()
         return inflater.inflate(R.layout.fragment_splash, container, false)
@@ -21,7 +25,7 @@ class SplashFragment : BaseFragment() {
         Handler().postDelayed({
             replaceFragment(
                 R.id.containerMain,
-                HomeFragment.newInstance(),
+                homeFragment,
                 false,
                 HomeFragment::class.java.simpleName
             )
@@ -29,9 +33,5 @@ class SplashFragment : BaseFragment() {
     }
 
     override fun bindView() {
-    }
-
-    companion object {
-        fun newInstance() = SplashFragment()
     }
 }

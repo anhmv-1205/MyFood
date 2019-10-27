@@ -1,4 +1,4 @@
-package com.sun_asterisk.myfood.ui.kindoffood
+package com.sun_asterisk.myfood.ui.category
 
 import android.os.Bundle
 import android.os.Handler
@@ -13,43 +13,43 @@ import androidx.recyclerview.widget.SnapHelper
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
-import com.sun_asterisk.myfood.data.model.KindOfFood
-import kotlinx.android.synthetic.main.fragment_kind_of_food.recyclerViewKindOfFood
+import com.sun_asterisk.myfood.data.model.Category
+import kotlinx.android.synthetic.main.fragment_category.recyclerViewKindOfFood
 
-class KindOfFoodFragment : BaseFragment(), OnItemClickListener<KindOfFood> {
+class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
-    private lateinit var kindOfFoodAdapter: KindOfFoodAdapter
+    private lateinit var mCategoryAdapter: CategoryAdapter
     private lateinit var snapHelper: SnapHelper
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_kind_of_food, container, false)
+        return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     override fun onResume() {
         super.onResume()
-        kindOfFoodAdapter.setOnItemKindOfFoodListener(this)
+        mCategoryAdapter.setOnItemKindOfFoodListener(this)
     }
 
     override fun onStop() {
         super.onStop()
-        kindOfFoodAdapter.unRegisterItemClickListener()
+        mCategoryAdapter.unRegisterItemClickListener()
     }
 
     override fun setUpView() {
-        val kindOfFoods = mutableListOf<KindOfFood>()
-        kindOfFoods.add(KindOfFood("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(KindOfFood("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(KindOfFood("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(KindOfFood("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(KindOfFood("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
+        val kindOfFoods = mutableListOf<Category>()
+        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
+        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
+        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
+        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
+        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
 
-        kindOfFoodAdapter = KindOfFoodAdapter(context!!, mutableListOf())
-        kindOfFoodAdapter.setOnItemKindOfFoodListener(this)
+        mCategoryAdapter = CategoryAdapter(context!!, mutableListOf())
+        mCategoryAdapter.setOnItemKindOfFoodListener(this)
         recyclerViewKindOfFood.apply {
-            adapter = kindOfFoodAdapter
+            adapter = mCategoryAdapter
             setHasFixedSize(true)
         }
-        kindOfFoodAdapter.setKindOfFoods(kindOfFoods)
+        mCategoryAdapter.setKindOfFoods(kindOfFoods)
 
         snapHelper = LinearSnapHelper().apply { attachToRecyclerView(recyclerViewKindOfFood) }
 
@@ -87,13 +87,11 @@ class KindOfFoodFragment : BaseFragment(), OnItemClickListener<KindOfFood> {
     override fun bindView() {
     }
 
-    override fun onItemViewClick(item: KindOfFood, position: Int) {
+    override fun onItemViewClick(item: Category, position: Int) {
     }
 
     companion object {
         private const val TIME_DURATION = 350L
         private const val TIME_DELAY = 100L
-
-        fun newInstance() = KindOfFoodFragment()
     }
 }

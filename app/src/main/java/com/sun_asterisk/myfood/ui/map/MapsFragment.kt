@@ -214,6 +214,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
     companion object {
         private val TAG = MapsFragment::class.java.simpleName
+        private const val EXTRA_ID_CATEGORY = "EXTRA_ID_CATEGORY"
 
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
@@ -223,6 +224,10 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         private const val INTERVAL = 10000L
         private const val FASTEST_INTERVAL = 5000L
 
-        fun newInstance() = MapsFragment()
+        fun newInstance(idCategory: String) = MapsFragment().apply {
+            val args = Bundle()
+            args.putString(EXTRA_ID_CATEGORY, idCategory)
+            arguments = args
+        }
     }
 }

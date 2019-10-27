@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
-import com.sun_asterisk.myfood.ui.kindoffood.KindOfFoodFragment
+import com.sun_asterisk.myfood.ui.category.CategoryFragment
 import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import kotlinx.android.synthetic.main.fragment_home.imageButtonFavorite
 import kotlinx.android.synthetic.main.fragment_home.imageButtonHome
 import kotlinx.android.synthetic.main.fragment_home.imageButtonPerson
+import org.koin.android.ext.android.inject
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
+
+    private val categoryFragment: CategoryFragment by inject()
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -24,9 +27,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         imageButtonPerson.setOnClickListener(this)
         addChildFragment(
             R.id.frameLayoutHome,
-            KindOfFoodFragment.newInstance(),
+            categoryFragment,
             false,
-            KindOfFoodFragment::class.java.simpleName,
+            CategoryFragment::class.java.simpleName,
             null
         )
     }
@@ -43,9 +46,5 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             R.id.imageButtonPerson -> {
             }
         }
-    }
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 }
