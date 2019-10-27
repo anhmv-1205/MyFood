@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        mavenCentral()
     }
 }
 
@@ -50,8 +50,12 @@ ext {
     // Google Play Services
     googlePlayServicesVersion = '17.0.0'
 
+    // Retrofit
+    retrofitVersion = '2.6.0'
+    okhttpVersion = '4.2.1'
+
     // Others
-    glideVersion = '4.8.0'
+    glideVersion = '4.10.0'
     circleimageviewVersion = '2.1.0'
     spinKitVersion = '1.4.0'
 }

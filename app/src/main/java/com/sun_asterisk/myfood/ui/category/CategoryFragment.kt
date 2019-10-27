@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -14,12 +15,15 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
-import kotlinx.android.synthetic.main.fragment_category.recyclerViewKindOfFood
+import com.sun_asterisk.myfood.utils.extension.showToast
+import kotlinx.android.synthetic.main.fragment_category.recyclerViewCategory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
     private lateinit var mCategoryAdapter: CategoryAdapter
     private lateinit var snapHelper: SnapHelper
+    private val viewModel: CategoryViewModel by viewModel()
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_category, container, false)
@@ -27,7 +31,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
     override fun onResume() {
         super.onResume()
-        mCategoryAdapter.setOnItemKindOfFoodListener(this)
+        mCategoryAdapter.setOnItemCategoryListener(this)
     }
 
     override fun onStop() {
@@ -36,32 +40,16 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun setUpView() {
-        val kindOfFoods = mutableListOf<Category>()
-        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-        kindOfFoods.add(Category("Rau", "Rau sach co nguon goc ro rang, duoc tuoi boi nguon nuoc sach que huowng"))
-
         mCategoryAdapter = CategoryAdapter(context!!, mutableListOf())
-        mCategoryAdapter.setOnItemKindOfFoodListener(this)
-        recyclerViewKindOfFood.apply {
+        mCategoryAdapter.setOnItemCategoryListener(this)
+        recyclerViewCategory.apply {
             adapter = mCategoryAdapter
             setHasFixedSize(true)
         }
-        mCategoryAdapter.setKindOfFoods(kindOfFoods)
 
-        snapHelper = LinearSnapHelper().apply { attachToRecyclerView(recyclerViewKindOfFood) }
+        snapHelper = LinearSnapHelper().apply { attachToRecyclerView(recyclerViewCategory) }
 
-        Handler().postDelayed({
-            recyclerViewKindOfFood.findViewHolderForAdapterPosition(0)?.let {
-                val constraintLayout = it.itemView.findViewById<ConstraintLayout>(R.id.constraintLayoutHome)
-                constraintLayout.animate().scaleY(1F).scaleX(1F).setDuration(TIME_DURATION)
-                    .setInterpolator(AccelerateInterpolator()).start()
-            }
-        }, TIME_DELAY)
-
-        recyclerViewKindOfFood.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerViewCategory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 recyclerView.layoutManager?.let {
@@ -85,6 +73,29 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun bindView() {
+        registerLiveData()
+        viewModel.getCategories()
+    }
+
+    private fun registerLiveData() {
+        viewModel.onCategoryEvent.observe(this, Observer {
+            setDataForAdapter(it)
+        })
+
+        viewModel.onMessageError.observe(this, Observer {
+            context?.showToast(it.getMessageError().toString())
+        })
+    }
+
+    private fun setDataForAdapter(categories: MutableList<Category>) {
+        mCategoryAdapter.setCategories(categories)
+        Handler().postDelayed({
+            recyclerViewCategory.findViewHolderForAdapterPosition(0)?.let {
+                val constraintLayout = it.itemView.findViewById<ConstraintLayout>(R.id.constraintLayoutHome)
+                constraintLayout.animate().scaleY(1F).scaleX(1F).setDuration(TIME_DURATION)
+                    .setInterpolator(AccelerateInterpolator()).start()
+            }
+        }, TIME_DELAY)
     }
 
     override fun onItemViewClick(item: Category, position: Int) {
