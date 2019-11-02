@@ -9,8 +9,11 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.recyclerview.BaseRecyclerViewAdapter
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
+import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.notNull
+import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
 import kotlinx.android.synthetic.main.item_category.view.buttonDetail
+import kotlinx.android.synthetic.main.item_category.view.imageViewCategory
 import kotlinx.android.synthetic.main.item_category.view.textViewDescription
 import kotlinx.android.synthetic.main.item_category.view.textViewFoodName
 
@@ -29,11 +32,11 @@ class CategoryAdapter(context: Context, dataList: MutableList<Category>) :
         if (holder is ItemHolder) holder.bindData(getItem(position))
     }
 
-    fun setKindOfFoods(categories: MutableList<Category>) {
+    fun setCategories(categories: MutableList<Category>) {
         setData(categories)
     }
 
-    fun setOnItemKindOfFoodListener(listener: OnItemClickListener<Category>?) {
+    fun setOnItemCategoryListener(listener: OnItemClickListener<Category>?) {
         this.mListener = listener
     }
 
@@ -56,8 +59,12 @@ class CategoryAdapter(context: Context, dataList: MutableList<Category>) :
 
             fun bindData(item: Category?) {
                 item?.let {
-                    itemView.textViewFoodName.text = item.title
+                    itemView.textViewFoodName.text = item.name
                     itemView.textViewDescription.text = item.description
+                    itemView.imageViewCategory.loadImageUrl(
+                        item.imageUrl.replaceIpAddress(),
+                        R.drawable.space
+                    )
                 }
             }
         }

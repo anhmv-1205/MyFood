@@ -12,6 +12,8 @@ def APP_ID = "com.sun_asterisk.myfood"
 
 def koin_version = '2.0.1'
 
+def room_version = "2.2.1"
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -71,6 +73,18 @@ dependencies {
 
     // Anko SQLite
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+
+    // Connect to the world
+    implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersion
+    implementation 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersion
+    implementation "com.squareup.okhttp3:okhttp:" + rootProject.okhttpVersion
+    implementation "com.squareup.okhttp3:logging-interceptor:" + rootProject.okhttpVersion
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
 
     // Other
     implementation "com.github.bumptech.glide:glide:" + rootProject.glideVersion
