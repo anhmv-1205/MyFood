@@ -3,6 +3,7 @@ package com.sun_asterisk.myfood.utils.extension
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -21,3 +22,5 @@ fun View.isVisible(): Boolean {
 }
 
 fun Context.showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+fun View.showSnackBar(message: String) = Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()

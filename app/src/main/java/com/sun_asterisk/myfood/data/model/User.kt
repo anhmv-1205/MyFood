@@ -31,5 +31,5 @@ data class User(
     val authorities: ArrayList<String>,
     @SerializedName("location")
     @Expose
-    var location: ArrayList<Long>?
+    var location: ArrayList<Float>?
 )

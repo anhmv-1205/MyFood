@@ -1,9 +1,11 @@
 package com.sun_asterisk.myfood.ui.map
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -12,7 +14,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -25,12 +31,20 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
+import com.sun_asterisk.myfood.data.model.User
+import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
+import com.sun_asterisk.myfood.utils.extension.bitmapDescriptorFromVector
+import com.sun_asterisk.myfood.utils.extension.showToast
+import kotlinx.android.synthetic.main.layout_custom_farmer_dialog.textViewPost
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
+import kotlin.math.ceil
 
 class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
@@ -41,6 +55,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
     private lateinit var marker: Marker
+    private lateinit var myLocation: LatLng
+    private var markersFarmer = mutableListOf<Marker>()
+    private var farmers = mutableListOf<User>()
+    private lateinit var farmer: User
+    private val viewModel: MapsViewModel by viewModel()
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_map, container, false)
@@ -61,6 +80,35 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     }
 
     override fun bindView() {
+        registerLiveData()
+        arguments?.getString(EXTRA_ID_CATEGORY)?.let {
+            viewModel.getUserByCategoryId(it)
+        }
+    }
+
+    private fun registerLiveData() {
+        viewModel.onUsersEvent.observe(this, Observer {
+            farmers = it
+            it.forEach { item ->
+                item.location?.let { loc ->
+                    val location = LatLng(loc[0].toDouble(), loc[1].toDouble())
+                    val marker = map.addMarker(
+                        MarkerOptions().position(location).title(getAddress(location)).icon(
+                            bitmapDescriptorFromVector(context!!, R.drawable.ic_farmer)
+                        )
+                    )
+                    markersFarmer.add(marker)
+                }
+            }
+        })
+
+        viewModel.onGetNumbersOfFoodByUserId.observe(this, Observer {
+            it?.let { showDialog(it) }
+        })
+
+        viewModel.onMessageError.observe(this, Observer {
+            context?.showToast(it.message.toString())
+        })
     }
 
     override fun onResume() {
@@ -88,7 +136,6 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
-        map.setOnMarkerClickListener(this)
         map.setOnMarkerClickListener(this)
         setupMap()
     }
@@ -128,11 +175,16 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     private fun placeMarkerOnMap(location: LatLng) {
         if (this::marker.isInitialized) marker.remove()
 
-        marker = map.addMarker(MarkerOptions().position(location).title(getAddress(location)))
-        /** if you want a custom icon as the pin. Let create a mipmap
-         *   markerOptions.icon(BitmapDescriptorFactory.fromBitmap(
-        BitmapFactory.decodeResource(resources, R.mipmap.ic_user_location)))
-         */
+        this.myLocation = location
+        marker = map.addMarker(
+            MarkerOptions().position(location).title(getAddress(location))
+        )
+
+        map.addCircle(
+            CircleOptions().center(location).radius(5000.0).strokeWidth(3f).strokeColor(Color.GRAY).fillColor(
+                Color.argb(10, 97, 149, 237)
+            )
+        )
     }
 
     private fun getAddress(latLng: LatLng): String {
@@ -208,8 +260,45 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        if (marker == this.marker) return false
+        farmer = farmers[markersFarmer.indexOf(marker)]
+        viewModel.getNumbersFoodByUserId(farmer.id)
         return false
+    }
+
+    private fun showDialog(numbersOfFood: Int) {
+        val result = floatArrayOf(1F)
+        Location.distanceBetween(
+            myLocation.latitude,
+            myLocation.longitude,
+            farmer.location!![0].toDouble(),
+            farmer.location!![1].toDouble(),
+            result
+        )
+
+        val dialogView = LayoutInflater.from(context!!).inflate(R.layout.layout_custom_farmer_dialog, null)
+
+        val alertDialog = AlertDialog.Builder(context!!).create()
+
+        val textViewName = dialogView.findViewById<TextView>(R.id.textViewName)
+        val textViewRating = dialogView.findViewById<TextView>(R.id.textViewRating)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBar)
+        val textViewDistance = dialogView.findViewById<TextView>(R.id.textViewDistance)
+        val buttonCancel = dialogView.findViewById<Button>(R.id.buttonCancel)
+        val buttonDetail = dialogView.findViewById<Button>(R.id.buttonDetail)
+        val textViewPost = dialogView.findViewById<TextView>(R.id.textViewPost)
+
+        textViewName.text = farmer.name
+        textViewRating.text = "4.5"
+        ratingBar.rating = 4.5F
+        textViewDistance.text = ceil((result[0]/1000).toDouble()).toString().addDistanceUnits()
+        textViewPost.text = numbersOfFood.toString()
+        buttonCancel.setOnClickListener { alertDialog.dismiss() }
+        buttonDetail.setOnClickListener { context?.showToast("Detail") }
+
+        alertDialog.setView(dialogView)
+        alertDialog.show()
     }
 
     companion object {

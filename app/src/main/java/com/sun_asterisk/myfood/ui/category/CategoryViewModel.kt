@@ -2,7 +2,6 @@ package com.sun_asterisk.myfood.ui.category
 
 import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.Category
-import com.sun_asterisk.myfood.data.remote.api.error.RetrofitException
 import com.sun_asterisk.myfood.data.repositories.CategoryRepository
 import com.sun_asterisk.myfood.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
@@ -13,23 +12,18 @@ class CategoryViewModel(private val categoryRepository: CategoryRepository) : Ba
 
     val onCategoryEvent: SingleLiveEvent<MutableList<Category>> by lazy { SingleLiveEvent<MutableList<Category>>() }
 
-    val onMessageError: SingleLiveEvent<RetrofitException> by lazy { SingleLiveEvent<RetrofitException>() }
+    val onMessageError: SingleLiveEvent<Exception> by lazy { SingleLiveEvent<Exception>() }
 
     fun getCategories() {
         coroutineScope.launch(Dispatchers.Main) {
-            var result = mutableListOf<Category>()
-            withContext(Dispatchers.IO) {
-                result = categoryRepository.getCategory()
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    categoryRepository.getCategory()
+                }
+                onCategoryEvent.value = result
+            } catch (ex: java.lang.Exception) {
+                onMessageError.value = ex
             }
-            onCategoryEvent.value = result
         }
-
-//        coroutineScope.launch(Dispatchers.IO) {
-//            onCategoryEvent.value = categoryRepository.getCategory()
-//        }
-    }
-
-    override fun printException(throwable: Throwable) {
-        if (throwable is RetrofitException) onMessageError.value = throwable
     }
 }

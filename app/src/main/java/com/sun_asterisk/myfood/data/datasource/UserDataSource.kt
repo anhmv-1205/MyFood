@@ -18,5 +18,9 @@ interface UserDataSource {
 
     interface Remote {
         suspend fun signIn(signInRequest: SignInRequest): SignInResponse
+
+        suspend fun getUsersWithCategoryId(categoryId: String): ArrayList<User>
+
+        suspend fun getNumbersOfFoodByUserId(userId: String): Int
     }
 }

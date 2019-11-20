@@ -81,14 +81,14 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:" + rootProject.okhttpVersion
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
     // Other
     implementation "com.github.bumptech.glide:glide:" + rootProject.glideVersion
-    implementation 'de.hdodenhof:circleimageview:' + rootProject.circleimageviewVersion
+    implementation 'com.mikhaellopez:circularimageview:' + rootProject.circleimageviewVersion
     kapt "com.github.bumptech.glide:compiler:" + rootProject.glideVersion
     implementation 'com.github.ybq:Android-SpinKit:' + rootProject.spinKitVersion
 }

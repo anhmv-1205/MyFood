@@ -17,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit.SECONDS
 
 var networkModule = module {
-    single { InterceptorImpl(get()) }
     single { provideOkHttpCache(androidApplication()) }
     single { provideInterceptor(get()) }
     single { provideOkHttpClient(get(), get()) }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.sun_asterisk.myfood.R.id
 import com.sun_asterisk.myfood.R.layout
 import com.sun_asterisk.myfood.base.BaseActivity
-import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.ui.splash.SplashFragment
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import org.koin.android.ext.android.inject
