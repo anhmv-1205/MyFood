@@ -1,6 +1,7 @@
 package com.sun_asterisk.myfood.utils.extension
 
 import android.app.Activity
+import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -15,12 +16,12 @@ import com.sun_asterisk.myfood.utils.AnimateType.FADE
 
 fun Fragment.replaceFragment(
     @IdRes containerId: Int, fragment: Fragment,
-    addToBackStask: Boolean = false,
+    addToBackStack: Boolean = false,
     tag: String = fragment::class.java.simpleName,
     animateType: AnimateType = FADE
 ) {
     fragmentManager?.transact({
-        if (addToBackStask) {
+        if (addToBackStack) {
             addToBackStack(tag)
         }
         replace(containerId, fragment, tag)
@@ -34,7 +35,7 @@ fun Fragment.addChildFragment(
     tag: String = fragment::class.java.simpleName,
     animateType: AnimateType? = FADE
 ) {
-    childFragmentManager.transact({
+    fragmentManager?.transact({
         if (addToBackStack) {
             addToBackStack(tag)
         }
@@ -53,12 +54,18 @@ fun Fragment.goBackFragment(): Boolean {
     return false
 }
 
-fun Fragment.showChildFragment(@IdRes constanerId: Int, vararg hideFragments: Fragment, showFragment: Fragment) {
+fun Fragment.comebackHomeFragment() {
+    fragmentManager?.notNull { fm ->
+        repeat((1..fm.backStackEntryCount).count()) { fm.popBackStack() }
+    }
+}
+
+fun Fragment.showChildFragment(@IdRes containerId: Int, vararg hideFragments: Fragment, showFragment: Fragment) {
     val existFragment = childFragmentManager.findFragmentByTag(showFragment.tag)
     childFragmentManager.beginTransaction().apply {
         hideFragments.forEach { hide(it) }
         if (existFragment != null) show(existFragment)
-        else addChildFragment(constanerId, showFragment)
+        else addChildFragment(containerId, showFragment)
         commit()
     }
 }
@@ -115,4 +122,8 @@ fun setupDismissKeyBoard(context: Activity?, view: View?) {
             setupDismissKeyBoard(context, innerView)
         }
     }
+}
+
+fun delayTask(func: () -> Unit, duration: Long = 1000) {
+    Handler().postDelayed(func, duration)
 }

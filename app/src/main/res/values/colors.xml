@@ -7,4 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey500">#808080</color>
     <color name="colorTextLogo">#B2B1B2</color>
+    <color name="colorGrey200">#EEEEEE</color>
+    <color name="colorGreen500">#4caf50</color>
+    <color name="colorGreen200">#a5d6a7</color>
 </resources>

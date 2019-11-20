@@ -15,9 +15,13 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
+import com.sun_asterisk.myfood.ui.map.MapsFragment
+import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_category.recyclerViewCategory
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
@@ -53,19 +57,19 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 recyclerView.layoutManager?.let {
-                    val view: View = snapHelper.findSnapView(it) as View
-                    val position = it.getPosition(view)
+                    snapHelper.findSnapView(it)?.let { view ->
+                        val position = it.getPosition(view)
+                        recyclerView.findViewHolderForAdapterPosition(position)?.let { viewHolder ->
+                            val constraintLayout =
+                                viewHolder.itemView.findViewById<ConstraintLayout>(R.id.constraintLayoutHome)
 
-                    recyclerView.findViewHolderForAdapterPosition(position)?.let { viewHolder ->
-                        val constraintLayout =
-                            viewHolder.itemView.findViewById<ConstraintLayout>(R.id.constraintLayoutHome)
-
-                        if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                            constraintLayout.animate().setDuration(TIME_DURATION).scaleX(1F).scaleY(1F)
-                                .setInterpolator(AccelerateInterpolator()).start()
-                        else
-                            constraintLayout.animate().setDuration(TIME_DURATION).scaleX(0.75F).scaleY(0.75F)
-                                .setInterpolator(AccelerateInterpolator()).start()
+                            if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                                constraintLayout.animate().setDuration(TIME_DURATION).scaleX(1F).scaleY(1F)
+                                    .setInterpolator(AccelerateInterpolator()).start()
+                            else
+                                constraintLayout.animate().setDuration(TIME_DURATION).scaleX(0.75F).scaleY(0.75F)
+                                    .setInterpolator(AccelerateInterpolator()).start()
+                        }
                     }
                 }
             }
@@ -83,7 +87,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
         })
 
         viewModel.onMessageError.observe(this, Observer {
-            context?.showToast(it.getMessageError().toString())
+            context?.showToast(it.message.toString())
         })
     }
 
@@ -99,6 +103,8 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun onItemViewClick(item: Category, position: Int) {
+        val mapsFragment: MapsFragment by inject { parametersOf(item.id) }
+        addChildFragment(R.id.frameLayoutHome, mapsFragment, true, MapsFragment::class.java.simpleName)
     }
 
     companion object {

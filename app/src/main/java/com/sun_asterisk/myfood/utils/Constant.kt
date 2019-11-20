@@ -15,10 +15,11 @@ object Constant {
     const val CONNECTION_TIMEOUT: Long = 30
 
     // URL
-    const val BASE_URL = "http://192.168.1.5:3000/"
+    const val BASE_URL = "http://192.168.0.110:3000/"
     const val LOCAL_HOST = "localhost"
-    const val IP = "192.168.1.5"
+    const val IP = "192.168.0.110"
 
     // Format
     const val ENTER_SPACE_FORMAT = "\n"
+    const val KILOMETER = "km"
 }

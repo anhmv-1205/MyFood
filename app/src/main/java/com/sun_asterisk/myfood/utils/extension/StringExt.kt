@@ -18,3 +18,9 @@ fun List<String>.toStringWithFormatPattern(format: String): String {
 
 fun String.replaceIpAddress(oldIp: String = Constant.LOCAL_HOST, newIp: String = Constant.IP, ignoreCase: Boolean = true) =
     this.replace(oldIp, newIp, ignoreCase)
+
+
+
+fun String.addDistanceUnits(unit: String = Constant.KILOMETER): String {
+    return "$this $unit"
+}

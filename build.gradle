@@ -56,6 +56,6 @@ ext {
 
     // Others
     glideVersion = '4.10.0'
-    circleimageviewVersion = '2.1.0'
+    circleimageviewVersion = '4.1.0'
     spinKitVersion = '1.4.0'
 }

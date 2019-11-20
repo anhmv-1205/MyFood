@@ -10,7 +10,6 @@ import com.sun_asterisk.myfood.base.recyclerview.BaseRecyclerViewAdapter
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
-import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
 import kotlinx.android.synthetic.main.item_category.view.buttonDetail
 import kotlinx.android.synthetic.main.item_category.view.imageViewCategory
@@ -29,7 +28,7 @@ class CategoryAdapter(context: Context, dataList: MutableList<Category>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (holder is ItemHolder) holder.bindData(getItem(position))
+        if (holder is ItemHolder) holder.bindData(getItem(position)!!)
     }
 
     fun setCategories(categories: MutableList<Category>) {
@@ -42,29 +41,20 @@ class CategoryAdapter(context: Context, dataList: MutableList<Category>) :
 
     companion object {
 
-        class ItemHolder(itemView: View, listener: OnItemClickListener<Category>?) :
+        class ItemHolder(itemView: View, private val listener: OnItemClickListener<Category>?) :
             RecyclerView.ViewHolder(itemView) {
 
-            private var mCategory: Category? = null
-
-            init {
-                listener.notNull {
-                    itemView.buttonDetail.setOnClickListener {
-                        mCategory?.let {
-                            listener?.onItemViewClick(it, adapterPosition)
-                        }
-                    }
-                }
-            }
-
-            fun bindData(item: Category?) {
-                item?.let {
-                    itemView.textViewFoodName.text = item.name
-                    itemView.textViewDescription.text = item.description
-                    itemView.imageViewCategory.loadImageUrl(
+            fun bindData(item: Category) {
+                itemView.run {
+                    textViewFoodName.text = item.name
+                    textViewDescription.text = item.description
+                    imageViewCategory.loadImageUrl(
                         item.imageUrl.replaceIpAddress(),
                         R.drawable.space
                     )
+                    buttonDetail.setOnClickListener {
+                        listener?.onItemViewClick(item, adapterPosition)
+                    }
                 }
             }
         }

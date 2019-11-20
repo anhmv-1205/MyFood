@@ -14,4 +14,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorGrey500</item>
+        <item name="colorControlActivated">@color/colorTextLogo</item>
+    </style>
 </resources>

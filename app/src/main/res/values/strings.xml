@@ -4,4 +4,8 @@
     <string name="my_food">M y  F o o d</string>
     <string name="go_to">Go to</string>
     <string name="logo_my_food">y Food</string>
+    <string name="text_cancel">Hủy</string>
+    <string name="text_detail">Chi tiết</string>
+    <string name="text_distance">Khoảng cách</string>
+    <string name="text_post">Bài đăng</string>
 </resources>

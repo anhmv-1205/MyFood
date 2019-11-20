@@ -11,16 +11,15 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
 
     private val viewModelJob: Job by lazy { Job() }
-    private val coroutineExceptionHandler: CoroutineExceptionHandler =
+    val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
             coroutineScope.launch(Dispatchers.Main) {
-                printException(throwable)
             }
-            GlobalScope.launch { println("Caught $throwable") }
+            GlobalScope.launch {
+                println("Caught $throwable")
+            }
         }
     val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob + coroutineExceptionHandler)
-
-    abstract fun printException(throwable: Throwable)
 
     override fun onCleared() {
         super.onCleared()

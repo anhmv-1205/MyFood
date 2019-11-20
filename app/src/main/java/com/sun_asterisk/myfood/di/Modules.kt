@@ -12,6 +12,7 @@ import com.sun_asterisk.myfood.ui.category.CategoryFragment
 import com.sun_asterisk.myfood.ui.category.CategoryViewModel
 import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.ui.map.MapsFragment
+import com.sun_asterisk.myfood.ui.map.MapsViewModel
 import com.sun_asterisk.myfood.ui.splash.SplashFragment
 import com.sun_asterisk.myfood.utils.Constant
 import org.koin.android.ext.koin.androidContext
@@ -33,6 +34,7 @@ var applicationModule = module {
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
+    viewModel { MapsViewModel(get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }

@@ -7,4 +7,9 @@ import org.koin.core.KoinComponent
 
 class UserRemoteDataSource(private val api: MyFoodApi) : UserDataSource.Remote, KoinComponent {
     override suspend fun signIn(signInRequest: SignInRequest) = api.signIn(signInRequest)
+
+    override suspend fun getUsersWithCategoryId(categoryId: String) = api.getUsersWithCategoryId(categoryId).data!!
+
+    override suspend fun getNumbersOfFoodByUserId(userId: String): Int =
+        api.getNumbersOfFoodByUserId(userId).data ?: 0
 }
