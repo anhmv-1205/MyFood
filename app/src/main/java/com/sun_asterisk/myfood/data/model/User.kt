@@ -1,11 +1,14 @@
 package com.sun_asterisk.myfood.data.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Entity
+@Parcelize
 data class User(
     @PrimaryKey
     @SerializedName("_id")
@@ -32,4 +35,4 @@ data class User(
     @SerializedName("location")
     @Expose
     var location: ArrayList<Float>?
-)
+): Parcelable
