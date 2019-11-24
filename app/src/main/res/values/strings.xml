@@ -2,10 +2,17 @@
     <string name="app_name">MyFood</string>
     <string name="general_positive_button">OK</string>
     <string name="my_food">M y  F o o d</string>
+    <string name="my_food_map">M y  F o o d  M a p</string>
     <string name="go_to">Go to</string>
     <string name="logo_my_food">y Food</string>
     <string name="text_cancel">Hủy</string>
     <string name="text_detail">Chi tiết</string>
     <string name="text_distance">Khoảng cách</string>
     <string name="text_post">Bài đăng</string>
+    <string name="text_loading_3dot">Loading…</string>
+    <string name="text_cost">Giá : </string>
+    <string name="text_out_of_food">Tạm hết</string>
+    <string name="text_display_food_cost">%1$d %2$s / %3$s</string>
+    <string name="text_display_amount_buy">%1$d buyers</string>
+    <string name="text_click_again_to_exit">Nhấn một lần nữa để thoát</string>
 </resources>

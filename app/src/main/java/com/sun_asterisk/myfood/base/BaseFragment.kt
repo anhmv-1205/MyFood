@@ -1,6 +1,7 @@
 package com.sun_asterisk.myfood.base
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,21 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import com.sun_asterisk.myfood.utils.widget.dialogmanager.DialogManager
+import com.sun_asterisk.myfood.utils.widget.dialogmanager.DialogManagerImpl
 
 abstract class BaseFragment : Fragment() {
+
+    var dialogManager: DialogManager? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dialogManager = if (context is BaseActivity) {
+            (activity as BaseActivity).dialogManager
+        } else {
+            DialogManagerImpl(context)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createView(inflater, container, savedInstanceState)
@@ -25,6 +39,11 @@ abstract class BaseFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         onHideSoftKeyBoard()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogManager?.hideLoading()
     }
 
     fun onHideSoftKeyBoard() {

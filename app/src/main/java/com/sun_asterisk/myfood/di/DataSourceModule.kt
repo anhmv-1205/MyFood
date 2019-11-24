@@ -5,6 +5,7 @@ import com.sun_asterisk.myfood.data.local.localdatasource.UserLocalDataSource
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefApi
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefsImpl
 import com.sun_asterisk.myfood.data.remote.remotedatasource.CategoryRemoteDataSource
+import com.sun_asterisk.myfood.data.remote.remotedatasource.FoodRemoteDataSource
 import com.sun_asterisk.myfood.data.remote.remotedatasource.UserRemoteDataSource
 import org.koin.dsl.module
 
@@ -13,6 +14,7 @@ val dataSourceModule = module {
     single { CategoryRemoteDataSource(get()) }
     single { provideUserLocalDataSource(get(), get()) }
     single { provideSharedPrefApi(get()) }
+    single { FoodRemoteDataSource(get()) }
 }
 
 fun provideUserLocalDataSource(sharedPrefApi: SharedPrefApi, appDatabase: AppDatabase): UserLocalDataSource {

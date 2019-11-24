@@ -1,6 +1,9 @@
 package com.sun_asterisk.myfood.utils.extension
 
 import com.sun_asterisk.myfood.utils.Constant
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 fun List<String>.toStringWithFormatPattern(format: String): String {
     if (this.isEmpty()) {
@@ -16,11 +19,27 @@ fun List<String>.toStringWithFormatPattern(format: String): String {
     return result
 }
 
-fun String.replaceIpAddress(oldIp: String = Constant.LOCAL_HOST, newIp: String = Constant.IP, ignoreCase: Boolean = true) =
+fun String.replaceIpAddress(
+    oldIp: String = Constant.LOCAL_HOST,
+    newIp: String = Constant.IP,
+    ignoreCase: Boolean = true
+) =
     this.replace(oldIp, newIp, ignoreCase)
-
-
 
 fun String.addDistanceUnits(unit: String = Constant.KILOMETER): String {
     return "$this $unit"
+}
+
+fun String.validateItemDuration(
+    numberOfDay: Int,
+    formatType: String = Constant.DATETIME_FORMAT_YYYY_MM_DD
+): Boolean {
+    val parsedDate = SimpleDateFormat(formatType, Locale.ENGLISH).parse(this)
+    val current = Calendar.getInstance().time
+    if (current.after(parsedDate)) {
+        val differenceInTime = current.time - parsedDate.time
+        val differenceInDate = differenceInTime / (1000 * 3600 * 24)
+        return differenceInDate <= numberOfDay
+    }
+    return false
 }
