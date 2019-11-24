@@ -49,8 +49,7 @@ class CategoryAdapter(context: Context, dataList: MutableList<Category>) :
                     textViewFoodName.text = item.name
                     textViewDescription.text = item.description
                     imageViewCategory.loadImageUrl(
-                        item.imageUrl.replaceIpAddress(),
-                        R.drawable.space
+                        item.imageUrl.replaceIpAddress()
                     )
                     buttonDetail.setOnClickListener {
                         listener?.onItemViewClick(item, adapterPosition)

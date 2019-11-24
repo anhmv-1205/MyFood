@@ -2,6 +2,7 @@ package com.sun_asterisk.myfood.ui.map
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -38,16 +39,26 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.data.model.User
+import com.sun_asterisk.myfood.ui.foods.FoodsFragment
+import com.sun_asterisk.myfood.ui.main.OnActionBarListener
+import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
 import com.sun_asterisk.myfood.utils.extension.bitmapDescriptorFromVector
+import com.sun_asterisk.myfood.utils.extension.delayTask
+import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.showToast
-import kotlinx.android.synthetic.main.layout_custom_farmer_dialog.textViewPost
+import kotlinx.android.synthetic.main.fragment_map.toolbarMap
+import kotlinx.android.synthetic.main.layout_toolbar.view.textViewToolbarTitle
+import kotlinx.android.synthetic.main.layout_toolbar.view.toolbar
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.io.IOException
 import kotlin.math.ceil
 
 class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
+    private var onActionBarListener: OnActionBarListener? = null
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
@@ -61,11 +72,22 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     private lateinit var farmer: User
     private val viewModel: MapsViewModel by viewModel()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnActionBarListener) onActionBarListener = context
+    }
+
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
     override fun setUpView() {
+        onActionBarListener?.notNull {
+            it.setupActionBar(toolbarMap.toolbar)
+            toolbarMap.toolbar.textViewToolbarTitle.text = getString(R.string.my_food_map)
+        }
+        dialogManager?.showLoading()
+        delayTask({ dialogManager?.hideLoading() }, 1500)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         context?.let { fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(it) }
@@ -104,10 +126,12 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
         viewModel.onGetNumbersOfFoodByUserId.observe(this, Observer {
             it?.let { showDialog(it) }
+            dialogManager?.hideLoading()
         })
 
         viewModel.onMessageError.observe(this, Observer {
             context?.showToast(it.message.toString())
+            dialogManager?.hideLoading()
         })
     }
 
@@ -262,6 +286,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
     override fun onMarkerClick(marker: Marker?): Boolean {
         if (marker == this.marker) return false
+        dialogManager?.showLoading()
         farmer = farmers[markersFarmer.indexOf(marker)]
         viewModel.getNumbersFoodByUserId(farmer.id)
         return false
@@ -292,13 +317,22 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         textViewName.text = farmer.name
         textViewRating.text = "4.5"
         ratingBar.rating = 4.5F
-        textViewDistance.text = ceil((result[0]/1000).toDouble()).toString().addDistanceUnits()
+        textViewDistance.text = ceil((result[0] / 1000).toDouble()).toString().addDistanceUnits()
         textViewPost.text = numbersOfFood.toString()
         buttonCancel.setOnClickListener { alertDialog.dismiss() }
-        buttonDetail.setOnClickListener { context?.showToast("Detail") }
+        buttonDetail.setOnClickListener {
+            val foodsFragment: FoodsFragment by inject { parametersOf(farmer) }
+            alertDialog.dismiss()
+            addChildFragment(R.id.frameLayoutHome, foodsFragment, true, FoodsFragment::class.java.simpleName)
+        }
 
         alertDialog.setView(dialogView)
         alertDialog.show()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onActionBarListener = null
     }
 
     companion object {

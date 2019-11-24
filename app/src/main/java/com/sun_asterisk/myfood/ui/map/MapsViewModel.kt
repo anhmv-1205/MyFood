@@ -1,6 +1,5 @@
 package com.sun_asterisk.myfood.ui.map
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.User

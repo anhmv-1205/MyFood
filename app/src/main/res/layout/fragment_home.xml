@@ -24,10 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/toolbarHome"
-        layout="@layout/layout_toolbar" />
-
     <ImageView
         android:id="@+id/footer"
         android:layout_width="match_parent"

@@ -18,3 +18,9 @@ fun AppCompatActivity.addFragmentToActivity(
         add(containerId, fragment, tag)
     }, animateType)
 }
+
+fun AppCompatActivity.goBackFragment(): Boolean {
+    val isShowPreviousPage = supportFragmentManager.backStackEntryCount > 0
+    if (isShowPreviousPage) supportFragmentManager.popBackStackImmediate()
+    return isShowPreviousPage
+}
