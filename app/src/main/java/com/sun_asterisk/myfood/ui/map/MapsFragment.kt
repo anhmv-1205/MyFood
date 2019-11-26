@@ -70,6 +70,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     private var markersFarmer = mutableListOf<Marker>()
     private var farmers = mutableListOf<User>()
     private lateinit var farmer: User
+    private lateinit var user: User
     private val viewModel: MapsViewModel by viewModel()
 
     override fun onAttach(context: Context) {
@@ -103,15 +104,19 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
     override fun bindView() {
         registerLiveData()
-        arguments?.getString(EXTRA_ID_CATEGORY)?.let {
-            viewModel.getUserByCategoryId(it)
-        }
     }
 
     private fun registerLiveData() {
+        viewModel.user.observe(this, Observer {
+            user = it
+            arguments?.getString(EXTRA_ID_CATEGORY)?.let { categoryId ->
+                viewModel.getUserByCategoryId(categoryId)
+            }
+        })
         viewModel.onUsersEvent.observe(this, Observer {
             farmers = it
-            it.forEach { item ->
+            farmers.find { item -> item.id == user.id }?.let { userRemoved -> farmers.remove(userRemoved) }
+            farmers.forEach { item ->
                 item.location?.let { loc ->
                     val location = LatLng(loc[0].toDouble(), loc[1].toDouble())
                     val marker = map.addMarker(
@@ -342,7 +347,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
         private const val PLACE_PICKER_REQUEST = 3
-        private const val DEFAULT_ZOOM = 12f
+        private const val DEFAULT_ZOOM = 10f
         private const val MAX_RESULTS = 1
         private const val INTERVAL = 10000L
         private const val FASTEST_INTERVAL = 5000L

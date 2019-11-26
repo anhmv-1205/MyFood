@@ -26,7 +26,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToLocation(value: String): ArrayList<Float>? {
-        val listType = object : TypeToken<ArrayList<Long>>() {}.type
+        val listType = object : TypeToken<ArrayList<Float>>() {}.type
         value.notNull {
             return Gson().fromJson(it, listType)
         }

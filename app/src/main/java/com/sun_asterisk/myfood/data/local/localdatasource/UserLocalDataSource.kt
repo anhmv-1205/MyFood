@@ -11,7 +11,7 @@ class UserLocalDataSource(
     private val userDao: UserDao
 ) : UserDataSource.Local, KoinComponent {
 
-    override suspend fun getUser() = userDao.getUser()
+    override fun getUser() = userDao.getUser()
 
     override suspend fun insertUser(user: User) = userDao.insertUser(user)
 

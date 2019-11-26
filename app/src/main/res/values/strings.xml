@@ -3,7 +3,7 @@
     <string name="general_positive_button">OK</string>
     <string name="my_food">M y  F o o d</string>
     <string name="my_food_map">M y  F o o d  M a p</string>
-    <string name="go_to">Go to</string>
+    <string name="go_to">Xem</string>
     <string name="logo_my_food">y Food</string>
     <string name="text_cancel">Hủy</string>
     <string name="text_detail">Chi tiết</string>
@@ -13,7 +13,7 @@
     <string name="text_cost">Giá : </string>
     <string name="text_out_of_food">Tạm hết</string>
     <string name="text_display_food_cost">%1$d %2$s / %3$s</string>
-    <string name="text_display_amount_buy">%1$d buyers</string>
+    <string name="text_display_amount_buy">%1$d</string>
     <string name="text_click_again_to_exit">Nhấn một lần nữa để thoát</string>
     <string name="text_email">E-mail</string>
     <string name="text_password">Mật khẩu</string>
@@ -25,4 +25,16 @@
     <string name="text_password_not_empty">Vui lòng nhập mật khẩu!</string>
     <string name="text_password_rule">Mật khẩu phải trên 6 kí tự</string>
     <string name="text_have_error">Đã có lỗi xảy ra</string>
+    <string name="text_order_food">Đặt thực phẩm</string>
+    <string name="text_note_order">Ghi chú thêm</string>
+    <string name="text_hint_note_create_order">Thêm ghi chú cho người bán …</string>
+    <string name="text_time_buy">Thời gian đến: <font fgcolor='#B2B1B2'>( &#706; 9am, &#706; 15pm)</font>  </string>
+    <string name="text_time_format">DD / MM / YYYY</string>
+    <string name="text_am">AM</string>
+    <string name="text_pm">PM</string>
+    <string name="text_date_format">dd/MM/yyyy</string>
+    <string name="text_time_buy_error">Không thể nhập thời gian trong quá khứ!</string>
+    <string name="text_not_empty">Trường này không được để trống!</string>ước
+    <string name="text_order_success">Đặt thành công!</string>
+    <string name="text_order_duplicate">Không thể thực hiện vì đơn hàng đã được đạt trước và chưa hoàn tất!</string>
 </resources>
