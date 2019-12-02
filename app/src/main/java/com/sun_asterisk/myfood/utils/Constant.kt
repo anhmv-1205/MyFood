@@ -30,4 +30,5 @@ object Constant {
     const val ENTER_SPACE_FORMAT = "\n"
     const val KILOMETER = "km"
     const val DATETIME_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
+    const val PASSWORD_NUMBER_OF_CHARACTER = 6
 }

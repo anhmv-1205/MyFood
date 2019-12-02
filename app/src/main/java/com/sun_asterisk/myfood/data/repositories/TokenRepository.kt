@@ -21,6 +21,7 @@ class TokenRepository(private val sharedPrefApi: SharedPrefApi) {
 
     fun saveToken(token: String) {
         this.token = token
+        sharedPrefApi.put(SharedPrefsKey.KEY_TOKEN, token)
     }
 
     fun clearToken() {

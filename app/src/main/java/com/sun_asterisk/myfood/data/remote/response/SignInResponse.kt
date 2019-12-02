@@ -7,14 +7,14 @@ import com.sun_asterisk.myfood.data.model.User
 data class SignInResponse(
     @SerializedName("token")
     @Expose
-    val token: String,
+    val token: String?,
     @SerializedName("data")
     @Expose
-    val user: User,
+    val user: User?,
     @SerializedName("message")
     @Expose
     val message: String,
     @Expose
     @SerializedName("status")
-    val status: String
+    val status: String?
 )
