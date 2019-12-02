@@ -12,7 +12,7 @@ class UserRepository(
     private val local: UserLocalDataSource
 ) : UserDataSource.Remote, UserDataSource.Local, KoinComponent {
 
-    override suspend fun getUser() = local.getUser()
+    override fun getUser() = local.getUser()
 
     override suspend fun insertUser(user: User) = local.insertUser(user)
 

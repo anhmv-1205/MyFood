@@ -3,9 +3,12 @@ package com.sun_asterisk.myfood.utils.extension
 import android.text.TextUtils
 import android.util.Patterns
 import com.sun_asterisk.myfood.utils.Constant
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 fun List<String>.toStringWithFormatPattern(format: String): String {
     if (this.isEmpty()) {
@@ -48,3 +51,44 @@ fun String.validateItemDuration(
 
 fun String.isEmailValid() = !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
+fun String.compareTimeWithCurrent(shift: String): Boolean {
+    val parsedDate = SimpleDateFormat(Constant.DATETIME_FORMAT_YYYY_MM_DD, Locale.US).parse(this)
+    val current = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
+    if (parsedDate == current.time) {
+        val compare = Calendar.getInstance()
+        val hourOfDay = compare.get(Calendar.HOUR_OF_DAY)
+        return if (shift == Constant.SHIFT_AM) (Constant.SHIFT_AM_HOUR_RULE - hourOfDay) > 0
+        else (Constant.SHIFT_PM_HOUR_RULE - hourOfDay) > 0
+    }
+    return parsedDate > current.time
+}
+
+fun String.toDateWithFormat(inputFormat: String, outputFormat: String): String {
+    val gmtTimeZone = TimeZone.getTimeZone("UTC")
+    val inputDateTimeFormat = SimpleDateFormat(inputFormat, Locale.getDefault())
+    inputDateTimeFormat.timeZone = gmtTimeZone
+
+    val outputDateTimeFormat = SimpleDateFormat(outputFormat, Locale.getDefault())
+    outputDateTimeFormat.timeZone = gmtTimeZone
+    return try {
+        outputDateTimeFormat.format(inputDateTimeFormat.parse(this))
+    } catch (ex: ParseException) {
+        this
+    }
+}
+
+@Throws(ParseException::class)
+fun String.toDate(format: String): Date {
+    val parser = SimpleDateFormat(format, Locale.getDefault())
+    return parser.parse(this)
+}
+
+fun String.createCalendarWithFormat(format: String = Constant.DATETIME_FORMAT_YYYY_MM_DD): Calendar {
+    val date = this.toDate(format)
+    return Calendar.getInstance().apply { time = date }
+}

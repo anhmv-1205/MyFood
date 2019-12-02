@@ -62,23 +62,24 @@
                 android:maxLines="2"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/sp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/textViewTitleCost"
                 app:layout_constraintEnd_toStartOf="@id/imageViewNew"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.15" />
+                app:layout_constraintVertical_chainStyle="spread" />
 
             <TextView
                 android:id="@+id/textViewTitleCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
                 android:fontFamily="@font/nexalight"
                 android:text="@string/text_cost"
                 android:textColor="@color/colorTextLogo"
                 android:textSize="@dimen/sp_14"
-                app:layout_constraintStart_toStartOf="@id/textViewFoodName"
-                app:layout_constraintTop_toBottomOf="@id/textViewFoodName" />
+                app:layout_constraintBottom_toTopOf="@+id/textViewAmountBuy"
+                app:layout_constraintStart_toStartOf="@+id/textViewFoodName"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFoodName" />
 
             <TextView
                 android:id="@+id/textViewCost"
@@ -98,11 +99,13 @@
                 android:id="@+id/textViewAmountBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
+                android:drawableStart="@drawable/ic_cart"
+                android:drawablePadding="@dimen/dp_4"
                 android:textColor="@color/colorTextLogo"
                 android:textSize="@dimen/sp_12"
-                app:layout_constraintStart_toStartOf="@id/textViewTitleCost"
-                app:layout_constraintTop_toBottomOf="@id/textViewTitleCost" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textViewTitleCost"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitleCost" />
 
             <TextView
                 android:id="@+id/textViewOutOfFood"

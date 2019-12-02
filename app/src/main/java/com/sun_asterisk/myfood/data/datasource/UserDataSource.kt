@@ -7,7 +7,7 @@ import com.sun_asterisk.myfood.data.remote.response.SignInResponse
 
 interface UserDataSource {
     interface Local {
-        suspend fun getUser(): LiveData<User>
+        fun getUser(): LiveData<User>
 
         suspend fun insertUser(user: User): Long
 

@@ -31,4 +31,8 @@ object Constant {
     const val KILOMETER = "km"
     const val DATETIME_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
     const val PASSWORD_NUMBER_OF_CHARACTER = 6
+    const val SHIFT_AM = "AM"
+    const val SHIFT_PM = "PM"
+    const val SHIFT_AM_HOUR_RULE = 9
+    const val SHIFT_PM_HOUR_RULE = 15
 }

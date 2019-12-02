@@ -1,5 +1,6 @@
 package com.sun_asterisk.myfood.ui.map
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.User
@@ -12,6 +13,8 @@ import kotlinx.coroutines.withContext
 class MapsViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
     val onUsersEvent: SingleLiveEvent<MutableList<User>> by lazy { SingleLiveEvent<MutableList<User>>() }
+
+    val user: LiveData<User> = userRepository.getUser()
 
     val onMessageError: MutableLiveData<Exception> by lazy { MutableLiveData<Exception>() }
 

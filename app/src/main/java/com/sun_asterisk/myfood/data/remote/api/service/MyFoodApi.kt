@@ -1,7 +1,9 @@
 package com.sun_asterisk.myfood.data.remote.api.service
 
 import com.sun_asterisk.myfood.data.model.Category
+import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
+import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
@@ -32,4 +34,8 @@ interface MyFoodApi {
     // Food
     @GET("foods/{userId}")
     suspend fun getFoodsWithIdUser(@Path("userId") userId: String, @Query("page") page: Int = Constant.DEFAULT_PAGE): ApiResponse<FoodResponse>
+
+    // Order
+    @POST("order")
+    suspend fun createOrder(@Body createOrderRequest: CreateOrderRequest): ApiResponse<Order>
 }

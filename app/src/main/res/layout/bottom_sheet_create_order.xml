@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetCreateOrder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:elevation="@dimen/dp_4"
+    android:focusable="true"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:cardCornerRadius="@dimen/dp_4"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16">
+
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTitleOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nexabold"
+            android:text="@string/text_order_food"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/itemFood"
+            layout="@layout/item_food_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleOrder" />
+
+        <View
+            android:id="@+id/viewWallFirst"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:background="@color/colorTextLogo"
+            app:layout_constraintEnd_toEndOf="@id/itemFood"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/itemFood" />
+
+        <TextView
+            android:id="@+id/textViewTitleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexabold"
+            android:text="@string/text_time_buy"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toTopOf="@id/viewWallFirst" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textViewTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="@+id/itemFood"
+            app:layout_constraintStart_toStartOf="@+id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitleTime">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTimeBuy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_border_grey_with_radius"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:focusable="false"
+                    android:hint="@string/text_time_format"
+                    android:padding="@dimen/dp_8"
+                    android:singleLine="true"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_4"
+                    app:layout_constraintBottom_toBottomOf="@id/editTextTimeBuy"
+                    app:layout_constraintEnd_toEndOf="@id/editTextTimeBuy"
+                    app:layout_constraintTop_toTopOf="@id/editTextTimeBuy">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonAM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:padding="@dimen/dp_4"
+                        android:text="@string/text_am"
+                        android:textColor="@drawable/text_color_selected"
+                        android:textSize="@dimen/sp_14" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonPM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:padding="@dimen/dp_4"
+                        android:text="@string/text_pm"
+                        android:textColor="@drawable/text_color_selected"
+                        android:textSize="@dimen/sp_14" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/viewWallSecond"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:background="@color/colorTextLogo"
+            app:layout_constraintEnd_toEndOf="@id/itemFood"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/textViewTime" />
+
+        <TextView
+            android:id="@+id/textViewTitleNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexabold"
+            android:text="@string/text_note_order"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/viewWallSecond" />
+
+        <EditText
+            android:id="@+id/editTextNote"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:background="@drawable/bg_white_border_grey_with_radius"
+            android:fontFamily="@font/nexalight"
+            android:gravity="top|start"
+            android:hint="@string/text_hint_note_create_order"
+            android:padding="@dimen/dp_8"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintDimensionRatio="4:1"
+            app:layout_constraintEnd_toEndOf="@id/itemFood"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitleNote" />
+
+        <View
+            android:id="@+id/viewWallLast"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@color/colorTextLogo"
+            app:layout_constraintEnd_toEndOf="@id/itemFood"
+            app:layout_constraintStart_toStartOf="@id/itemFood"
+            app:layout_constraintTop_toBottomOf="@id/editTextNote" />
+
+        <Button
+            android:id="@+id/buttonOrder"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="@drawable/bg_red_selected_with_radius"
+            android:fontFamily="@font/nexabold"
+            android:text="@string/text_order_food"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewWallLast" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

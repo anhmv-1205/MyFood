@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#808080</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey500">#808080</color>
+    <color name="colorGrey700">#616161</color>
     <color name="colorTextLogo">#B2B1B2</color>
     <color name="colorGrey50">#fafafa</color>
     <color name="colorGrey200">#EEEEEE</color>
@@ -14,5 +15,6 @@
     <color name="colorGreen500">#4caf50</color>
     <color name="colorBlue500">#2196f3</color>
     <color name="colorRed500">#f44336</color>
+    <color name="colorRed800">#c62828</color>
     <color name="colorBlackAlpha70">#B7000000</color>
 </resources>
