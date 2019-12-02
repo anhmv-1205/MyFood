@@ -14,9 +14,12 @@ import com.sun_asterisk.myfood.ui.category.CategoryViewModel
 import com.sun_asterisk.myfood.ui.foods.FoodsFragment
 import com.sun_asterisk.myfood.ui.foods.FoodsViewModel
 import com.sun_asterisk.myfood.ui.home.HomeFragment
+import com.sun_asterisk.myfood.ui.login.LoginFragment
+import com.sun_asterisk.myfood.ui.login.LoginViewModel
 import com.sun_asterisk.myfood.ui.map.MapsFragment
 import com.sun_asterisk.myfood.ui.map.MapsViewModel
 import com.sun_asterisk.myfood.ui.splash.SplashFragment
+import com.sun_asterisk.myfood.ui.splash.SplashViewModel
 import com.sun_asterisk.myfood.utils.Constant
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -35,11 +38,14 @@ var applicationModule = module {
     factory { CategoryFragment() }
     factory { (idCategory: String) -> MapsFragment.newInstance(idCategory) }
     factory { (user: User) -> FoodsFragment.newInstance(user) }
+    factory { LoginFragment() }
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
     viewModel { MapsViewModel(get()) }
     viewModel { FoodsViewModel(get()) }
+    viewModel { SplashViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }

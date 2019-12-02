@@ -15,4 +15,14 @@
     <string name="text_display_food_cost">%1$d %2$s / %3$s</string>
     <string name="text_display_amount_buy">%1$d buyers</string>
     <string name="text_click_again_to_exit">Nhấn một lần nữa để thoát</string>
+    <string name="text_email">E-mail</string>
+    <string name="text_password">Mật khẩu</string>
+    <string name="text_login">Đăng nhập</string>
+    <string name="text_not_a_member">Bạn không phải là thành viên ?</string>
+    <string name="text_register">Đăng kí ngay!</string>
+    <string name="text_email_not_empty">Vui lòng nhập email!</string>
+    <string name="text_email_wrong_format">Sai định dạng email!</string>
+    <string name="text_password_not_empty">Vui lòng nhập mật khẩu!</string>
+    <string name="text_password_rule">Mật khẩu phải trên 6 kí tự</string>
+    <string name="text_have_error">Đã có lỗi xảy ra</string>
 </resources>

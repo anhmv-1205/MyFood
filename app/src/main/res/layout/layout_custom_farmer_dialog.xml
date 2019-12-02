@@ -159,7 +159,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/dp_30"
-            android:background="@drawable/bg_green_border"
+            android:background="@drawable/bg_grey_border"
             android:text="@string/text_detail"
             android:textAllCaps="false"
             android:textColor="@android:color/white"

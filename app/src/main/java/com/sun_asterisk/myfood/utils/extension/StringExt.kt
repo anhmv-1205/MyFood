@@ -1,5 +1,7 @@
 package com.sun_asterisk.myfood.utils.extension
 
+import android.text.TextUtils
+import android.util.Patterns
 import com.sun_asterisk.myfood.utils.Constant
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -43,3 +45,6 @@ fun String.validateItemDuration(
     }
     return false
 }
+
+fun String.isEmailValid() = !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
