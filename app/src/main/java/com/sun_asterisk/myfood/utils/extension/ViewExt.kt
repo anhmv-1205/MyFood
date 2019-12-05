@@ -3,8 +3,10 @@ package com.sun_asterisk.myfood.utils.extension
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.utils.listener.OnDataCalendarListener
 import java.util.Calendar
 
@@ -43,4 +45,10 @@ fun Context.showDatePickerDialog(calendar: Calendar = Calendar.getInstance(), li
         }, yyyy, mm, dd
     )
     datePicker.show()
+}
+
+fun View.fadeOutWithAnimation() {
+    val animate = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+    this.startAnimation(animate)
+    this.gone()
 }

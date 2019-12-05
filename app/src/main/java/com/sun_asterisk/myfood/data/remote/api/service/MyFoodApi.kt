@@ -7,6 +7,7 @@ import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
+import com.sun_asterisk.myfood.data.remote.response.OrderResponse
 import com.sun_asterisk.myfood.data.remote.response.SignInResponse
 import com.sun_asterisk.myfood.utils.Constant
 import retrofit2.http.Body
@@ -38,4 +39,7 @@ interface MyFoodApi {
     // Order
     @POST("order")
     suspend fun createOrder(@Body createOrderRequest: CreateOrderRequest): ApiResponse<Order>
+
+    @GET("order")
+    suspend fun getOrdersOfUser(@Query("page") page: Int): ApiResponse<OrderResponse>
 }

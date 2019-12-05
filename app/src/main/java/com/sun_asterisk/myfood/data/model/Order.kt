@@ -9,29 +9,32 @@ import kotlinx.android.parcel.Parcelize
 data class Order(
     @SerializedName("_id")
     @Expose
-    val id: String,
+    val id: String = "",
     @SerializedName("foodId")
     @Expose
-    val foodId: String,
+    val foodId: String = "",
     @SerializedName("sellerId")
     @Expose
-    val sellerId: String,
+    val sellerId: String = "",
     @SerializedName("buyerId")
     @Expose
-    val buyerId: String,
+    val buyerId: String = "",
     @SerializedName("date_buy")
     @Expose
-    val date_buy: String,
+    val date_buy: String = "",
     @SerializedName("shift")
     @Expose
-    val shift: String,
+    val shift: String = "",
     @SerializedName("date_created")
     @Expose
-    val dateCreated: String,
+    val dateCreated: String = "",
     @SerializedName("status")
     @Expose
-    val status: String,
+    var status: String = "",
     @SerializedName("note")
     @Expose
-    val note: String
+    val note: String = "",
+    @SerializedName("food")
+    @Expose
+    val food: Food = Food()
 ) : Parcelable

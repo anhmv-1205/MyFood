@@ -328,7 +328,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         buttonDetail.setOnClickListener {
             val foodsFragment: FoodsFragment by inject { parametersOf(farmer) }
             alertDialog.dismiss()
-            addChildFragment(R.id.frameLayoutHome, foodsFragment, true, FoodsFragment::class.java.simpleName)
+            addChildFragment(R.id.containerMain, foodsFragment, true, FoodsFragment::class.java.simpleName)
         }
 
         alertDialog.setView(dialogView)

@@ -19,6 +19,9 @@ import com.sun_asterisk.myfood.ui.login.LoginFragment
 import com.sun_asterisk.myfood.ui.login.LoginViewModel
 import com.sun_asterisk.myfood.ui.map.MapsFragment
 import com.sun_asterisk.myfood.ui.map.MapsViewModel
+import com.sun_asterisk.myfood.ui.orders.OrdersFragment
+import com.sun_asterisk.myfood.ui.orders.OrdersViewModel
+import com.sun_asterisk.myfood.ui.profile.ProfileFragment
 import com.sun_asterisk.myfood.ui.splash.SplashFragment
 import com.sun_asterisk.myfood.ui.splash.SplashViewModel
 import com.sun_asterisk.myfood.utils.Constant
@@ -41,6 +44,8 @@ var applicationModule = module {
     factory { (idCategory: String) -> MapsFragment.newInstance(idCategory) }
     factory { (user: User) -> FoodsFragment.newInstance(user) }
     factory { LoginFragment() }
+    factory { OrdersFragment() }
+    factory { ProfileFragment() }
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
@@ -48,6 +53,7 @@ var applicationModule = module {
     viewModel { FoodsViewModel(get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { OrdersViewModel(get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }
