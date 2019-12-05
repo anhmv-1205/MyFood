@@ -1,8 +1,11 @@
 package com.sun_asterisk.myfood.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Food(
     @SerializedName("_id")
     @Expose
@@ -37,4 +40,4 @@ data class Food(
     @SerializedName("date_created")
     @Expose
     val dateCreated: String = ""
-)
+) : Parcelable

@@ -17,4 +17,6 @@
     <color name="colorRed500">#f44336</color>
     <color name="colorRed800">#c62828</color>
     <color name="colorBlackAlpha70">#B7000000</color>
+    <color name="colorTransparentBg">#80000000</color>
+
 </resources>

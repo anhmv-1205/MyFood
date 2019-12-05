@@ -28,8 +28,9 @@
     <string name="text_order_food">Đặt thực phẩm</string>
     <string name="text_note_order">Ghi chú thêm</string>
     <string name="text_hint_note_create_order">Thêm ghi chú cho người bán …</string>
-    <string name="text_time_buy">Thời gian đến: <font fgcolor='#B2B1B2'>( &#706; 9am, &#706; 15pm)</font>  </string>
-    <string name="text_time_format">DD / MM / YYYY</string>
+    <string name="text_title_time_buy">Thời gian đến: <font fgcolor='#B2B1B2'>( &#706; 9am, &#706; 15pm)</font></string>
+    <string name="text_time_hint">DD / MM / YYYY</string>
+    <string name="text_time_format">dd / MM / yyyy</string>
     <string name="text_am">AM</string>
     <string name="text_pm">PM</string>
     <string name="text_date_format">dd/MM/yyyy</string>
@@ -37,4 +38,12 @@
     <string name="text_not_empty">Trường này không được để trống!</string>ước
     <string name="text_order_success">Đặt thành công!</string>
     <string name="text_order_duplicate">Không thể thực hiện vì đơn hàng đã được đạt trước và chưa hoàn tất!</string>
+    <string name="text_title_order">C a r t</string>
+    <string name="text_title_profile">P r o f i l e</string>
+    <string name="text_order_status_requesting"><font color='#f44336'>Đang yêu cầu</font></string>
+    <string name="text_order_status_approved"><font color='#2196f3'>Đã chấp nhận</font></string>
+    <string name="text_order_status_done"><font color='#4caf50'>Hoàn tất</font></string>
+    <string name="text_order_status_canceled"><font color='#616161'>Đã hủy</font></string>
+    <string name="text_order_status_rejected"><font color='#616161'>Bị từ chối</font></string>
+    <string name="text_time_buy_and_shift">%1$s <b> - </b> %2$s</string>
 </resources>
