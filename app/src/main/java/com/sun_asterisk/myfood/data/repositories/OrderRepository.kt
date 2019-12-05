@@ -8,4 +8,11 @@ import org.koin.core.KoinComponent
 class OrderRepository(private val remote: OrderRemoteDataSource) : OrderDataSource.Remote, KoinComponent {
 
     override suspend fun createOrder(createOrderRequest: CreateOrderRequest) = remote.createOrder(createOrderRequest)
+
+    override suspend fun getOrdersOfUser(page: Int) = remote.getOrdersOfUser(page)
+
+    override suspend fun getOrderByOrderId(orderId: String) = remote.getOrderByOrderId(orderId)
+
+    override suspend fun updateOrderStatus(orderId: String, toStatus: String) =
+        remote.updateOrderStatus(orderId, toStatus)
 }

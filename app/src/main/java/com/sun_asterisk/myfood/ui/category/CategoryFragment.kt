@@ -1,6 +1,5 @@
 package com.sun_asterisk.myfood.ui.category
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -16,29 +15,19 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
-import com.sun_asterisk.myfood.ui.main.OnActionBarListener
 import com.sun_asterisk.myfood.ui.map.MapsFragment
 import com.sun_asterisk.myfood.utils.extension.addChildFragment
-import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_category.recyclerViewCategory
-import kotlinx.android.synthetic.main.fragment_category.toolbarCategory
-import kotlinx.android.synthetic.main.layout_toolbar.view.toolbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
-    private var onActionBarListener: OnActionBarListener? = null
     private lateinit var mCategoryAdapter: CategoryAdapter
     private lateinit var snapHelper: SnapHelper
     private val viewModel: CategoryViewModel by viewModel()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        onActionBarListener = if (context is OnActionBarListener) context else null
-    }
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_category, container, false)
@@ -55,9 +44,6 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun setUpView() {
-        onActionBarListener?.notNull {
-            it.setupActionBar(toolbarCategory.toolbar, false)
-        }
         dialogManager?.showLoading()
         mCategoryAdapter = CategoryAdapter(context!!, mutableListOf())
         mCategoryAdapter.setOnItemCategoryListener(this)
@@ -91,12 +77,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
         })
     }
 
-    override fun bindView() {
-        registerLiveData()
-        viewModel.getCategories()
-    }
-
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.onCategoryEvent.observe(this, Observer {
             setDataForAdapter(it)
             dialogManager?.hideLoading()
@@ -106,6 +87,10 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
             context?.showToast(it.message.toString())
             dialogManager?.hideLoading()
         })
+    }
+
+    override fun bindView() {
+        viewModel.getCategories()
     }
 
     private fun setDataForAdapter(categories: MutableList<Category>) {
@@ -121,12 +106,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
     override fun onItemViewClick(item: Category, position: Int) {
         val mapsFragment: MapsFragment by inject { parametersOf(item.id) }
-        addChildFragment(R.id.frameLayoutHome, mapsFragment, true, MapsFragment::class.java.simpleName)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        onActionBarListener = null
+        addChildFragment(R.id.containerMain, mapsFragment, true, MapsFragment::class.java.simpleName)
     }
 
     companion object {

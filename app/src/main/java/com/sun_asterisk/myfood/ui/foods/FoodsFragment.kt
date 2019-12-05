@@ -23,11 +23,13 @@ import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.compareTimeWithCurrent
 import com.sun_asterisk.myfood.utils.extension.createCalendarWithFormat
 import com.sun_asterisk.myfood.utils.extension.delayTask
+import com.sun_asterisk.myfood.utils.extension.fadeOutWithAnimation
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
 import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
 import com.sun_asterisk.myfood.utils.extension.setState
+import com.sun_asterisk.myfood.utils.extension.show
 import com.sun_asterisk.myfood.utils.extension.showDatePickerDialog
 import com.sun_asterisk.myfood.utils.extension.showToast
 import com.sun_asterisk.myfood.utils.extension.toDateWithFormat
@@ -46,6 +48,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_create_order.view.itemFood
 import kotlinx.android.synthetic.main.fragment_foods.recyclerViewFoods
 import kotlinx.android.synthetic.main.fragment_foods.swipeFoods
 import kotlinx.android.synthetic.main.fragment_foods.toolbarFoods
+import kotlinx.android.synthetic.main.fragment_foods.viewTransparent
 import kotlinx.android.synthetic.main.item_food_vertical.view.imageViewFood
 import kotlinx.android.synthetic.main.item_food_vertical.view.imageViewNew
 import kotlinx.android.synthetic.main.item_food_vertical.view.textViewAmountBuy
@@ -116,10 +119,13 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
             override fun onStateChanged(p0: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
+                        viewTransparent.fadeOutWithAnimation()
                         swipeFoods.isEnabled = true
                         clearFormBottomSheet()
                     }
-                    BottomSheetBehavior.STATE_EXPANDED -> swipeFoods.isEnabled = false
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        swipeFoods.isEnabled = false
+                    }
                     BottomSheetBehavior.STATE_DRAGGING -> {
                     }
                     BottomSheetBehavior.STATE_HIDDEN -> {
@@ -142,12 +148,7 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
         }
     }
 
-    override fun bindView() {
-        registerLiveData()
-        viewModel.getFoodsWithUserId(farmer.id)
-    }
-
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.onGetFoodEvent.observe(this, Observer {
             if (isRefresh) {
                 endlessRecyclerOnScrollListener.reset()
@@ -175,6 +176,10 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
                 else -> context?.showToast(it)
             }
         })
+    }
+
+    override fun bindView() {
+        viewModel.getFoodsWithUserId(farmer.id)
     }
 
     private fun getFoodsNotEmpty(): MutableList<Food> {
@@ -238,6 +243,7 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
 
     override fun onItemViewClick(item: Food, position: Int) {
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+            viewTransparent.show()
             foodSelected = item
             setDataForBottomSheet(item)
         }

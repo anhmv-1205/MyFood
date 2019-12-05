@@ -25,4 +25,6 @@ class UserRepository(
     override suspend fun getUsersWithCategoryId(categoryId: String) = remote.getUsersWithCategoryId(categoryId)
 
     override suspend fun getNumbersOfFoodByUserId(userId: String) = remote.getNumbersOfFoodByUserId(userId)
+
+    override suspend fun getUserByUserId(userId: String) = remote.getUserByUserId(userId)
 }

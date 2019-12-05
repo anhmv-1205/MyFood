@@ -3,6 +3,7 @@ package com.sun_asterisk.myfood.data.datasource
 import androidx.lifecycle.LiveData
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
+import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.SignInResponse
 
 interface UserDataSource {
@@ -22,5 +23,7 @@ interface UserDataSource {
         suspend fun getUsersWithCategoryId(categoryId: String): ArrayList<User>
 
         suspend fun getNumbersOfFoodByUserId(userId: String): Int
+
+        suspend fun getUserByUserId(userId: String): ApiResponse<User>
     }
 }

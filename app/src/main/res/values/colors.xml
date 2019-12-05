@@ -9,6 +9,7 @@
     <color name="colorGrey700">#616161</color>
     <color name="colorTextLogo">#B2B1B2</color>
     <color name="colorGrey50">#fafafa</color>
+    <color name="colorGrey100">#f5f5f5</color>
     <color name="colorGrey200">#EEEEEE</color>
     <color name="colorGrey300">#e0e0e0</color>
     <color name="colorGreen200">#a5d6a7</color>
@@ -17,4 +18,6 @@
     <color name="colorRed500">#f44336</color>
     <color name="colorRed800">#c62828</color>
     <color name="colorBlackAlpha70">#B7000000</color>
+    <color name="colorTransparentBg">#80000000</color>
+
 </resources>

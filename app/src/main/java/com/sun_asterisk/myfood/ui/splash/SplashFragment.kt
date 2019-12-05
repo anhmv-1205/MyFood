@@ -37,6 +37,9 @@ class SplashFragment : BaseFragment() {
         }, Constant.TIME_DELAY)
     }
 
+    override fun registerLiveData() {
+    }
+
     override fun bindView() {
     }
 }

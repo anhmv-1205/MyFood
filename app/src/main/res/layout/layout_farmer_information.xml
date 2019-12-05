@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/dp_1"
+    app:cardCornerRadius="@dimen/dp_4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:src="@drawable/ic_store"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:background="@color/colorGrey200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/imageViewStore"
+            app:layout_constraintStart_toStartOf="@+id/imageViewStore"
+            app:layout_constraintTop_toBottomOf="@id/imageViewStore" />
+
+        <TextView
+            android:id="@+id/textViewFarmerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:fontFamily="@font/nexabold"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewStore"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageViewStore"
+            app:layout_constraintTop_toTopOf="@id/imageViewStore" />
+
+        <TextView
+            android:id="@+id/textViewFarmerBirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexalight"
+            android:singleLine="true"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/textViewFarmerName"
+            app:layout_constraintStart_toStartOf="@id/textViewFarmerName"
+            app:layout_constraintTop_toBottomOf="@id/textViewFarmerName" />
+
+        <TextView
+            android:id="@+id/textViewDateCreateAccountFarmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexalight"
+            android:singleLine="true"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/textViewFarmerBirthday"
+            app:layout_constraintStart_toStartOf="@id/textViewFarmerBirthday"
+            app:layout_constraintTop_toBottomOf="@id/textViewFarmerBirthday" />
+
+        <TextView
+            android:id="@+id/textViewDirection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@drawable/bg_grey_border"
+            android:backgroundTint="@color/colorRed500"
+            android:padding="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:text="@string/text_go_to"
+            android:textColor="@android:color/white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textViewDateCreateAccountFarmer"
+            app:layout_constraintTop_toBottomOf="@id/textViewDateCreateAccountFarmer" />
+
+        <TextView
+            android:id="@+id/textViewRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@drawable/bg_grey_light_select_radius"
+            android:fontFamily="@font/nexabold"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8"
+            android:text="@string/text_share_rate"
+            android:textColor="@color/colorGrey700"
+            android:textSize="@dimen/sp_12"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewFarmerBirthday" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+

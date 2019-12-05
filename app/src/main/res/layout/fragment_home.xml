@@ -14,11 +14,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/frameLayoutHome"
+    <include
+        android:id="@+id/toolbarHome"
+        layout="@layout/layout_toolbar" />
+
+    <com.sun_asterisk.myfood.ui.home.NonSwipeableViewPager
+        android:id="@+id/viewPagerHome"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +36,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/footer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:0.28"
+        app:layout_constraintDimensionRatio="1:0.26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -53,9 +57,13 @@
         android:id="@+id/imageButtonFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_20"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_favorite"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?actionBarItemBackground"
+        android:padding="@dimen/dp_12"
+        android:src="@drawable/ic_order"
         app:layout_constraintBottom_toBottomOf="@id/imageButtonHome"
         app:layout_constraintStart_toStartOf="@id/footer"
         app:layout_constraintTop_toTopOf="@id/imageButtonHome" />
@@ -64,8 +72,12 @@
         android:id="@+id/imageButtonPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_20"
         android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?actionBarItemBackground"
+        android:padding="@dimen/dp_12"
         android:src="@drawable/ic_person"
         app:layout_constraintBottom_toBottomOf="@id/imageButtonHome"
         app:layout_constraintEnd_toEndOf="@id/footer"
