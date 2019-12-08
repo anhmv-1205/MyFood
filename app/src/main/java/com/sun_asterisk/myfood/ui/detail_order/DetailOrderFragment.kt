@@ -228,13 +228,10 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.textViewDirection -> {
-                // go to gg map application
             }
             R.id.textViewRate -> {
-                // show dialog to rate
             }
             R.id.imageViewPhone -> {
-                // intent to phone call
             }
             R.id.buttonCancel -> viewModel.updateOrderStatus(order!!.id, OrderStatus.CANCELED)
 
@@ -245,7 +242,6 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
             R.id.buttonDone -> viewModel.updateOrderStatus(order!!.id, OrderStatus.DONE)
 
             R.id.buttonReorder -> {
-                // show bottom sheet reorder
             }
         }
     }
