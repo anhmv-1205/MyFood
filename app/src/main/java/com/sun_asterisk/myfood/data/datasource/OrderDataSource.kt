@@ -11,5 +11,9 @@ interface OrderDataSource {
         suspend fun createOrder(createOrderRequest: CreateOrderRequest): ApiResponse<Order>
 
         suspend fun getOrdersOfUser(page: Int = Constant.DEFAULT_PAGE): ApiResponse<OrderResponse>
+
+        suspend fun getOrderByOrderId(orderId: String): ApiResponse<Order>
+
+        suspend fun updateOrderStatus(orderId: String, toStatus: String): ApiResponse<Order>
     }
 }

@@ -12,4 +12,9 @@ class OrderRemoteDataSource(private val myFoodApi: MyFoodApi) : OrderDataSource.
         myFoodApi.createOrder(createOrderRequest)
 
     override suspend fun getOrdersOfUser(page: Int): ApiResponse<OrderResponse> = myFoodApi.getOrdersOfUser(page)
+
+    override suspend fun getOrderByOrderId(orderId: String) = myFoodApi.getOrderByOrderId(orderId)
+
+    override suspend fun updateOrderStatus(orderId: String, toStatus: String) =
+        myFoodApi.updateOrderStatus(orderId, toStatus)
 }

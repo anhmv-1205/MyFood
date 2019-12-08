@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/dp_1"
+    app:cardCornerRadius="@dimen/dp_4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:src="@drawable/ic_person"
+            android:tint="@color/colorGrey500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:background="@color/colorGrey200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/imageViewPerson"
+            app:layout_constraintStart_toStartOf="@+id/imageViewPerson"
+            app:layout_constraintTop_toBottomOf="@id/imageViewPerson" />
+
+        <TextView
+            android:id="@+id/textViewBuyerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:fontFamily="@font/nexabold"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewPerson"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageViewPerson"
+            app:layout_constraintTop_toTopOf="@id/imageViewPerson" />
+
+        <TextView
+            android:id="@+id/textViewBuyerBirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexalight"
+            android:singleLine="true"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/textViewBuyerName"
+            app:layout_constraintStart_toStartOf="@id/textViewBuyerName"
+            app:layout_constraintTop_toBottomOf="@id/textViewBuyerName" />
+
+        <TextView
+            android:id="@+id/textViewDateCreateAccountBuyer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nexalight"
+            android:singleLine="true"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/textViewBuyerBirthday"
+            app:layout_constraintStart_toStartOf="@id/textViewBuyerBirthday"
+            app:layout_constraintTop_toBottomOf="@id/textViewBuyerBirthday" />
+
+        <ImageView
+            android:id="@+id/imageViewPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textViewDateCreateAccountBuyer"
+            app:layout_constraintTop_toBottomOf="@id/textViewDateCreateAccountBuyer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

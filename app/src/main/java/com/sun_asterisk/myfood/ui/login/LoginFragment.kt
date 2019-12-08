@@ -33,7 +33,20 @@ class LoginFragment : BaseFragment(), OnClickListener {
     override fun setUpView() {
         buttonLogin.setOnClickListener(this)
         textViewRegister.setOnClickListener(this)
-        registerLiveData()
+    }
+
+    override fun registerLiveData() {
+        viewModel.onLoginEvent.observe(this, Observer {
+            if (it)
+                replaceFragment(R.id.containerMain, homeFragment, false, HomeFragment::class.java.simpleName)
+        })
+        viewModel.onProgressDialogEvent.observe(this, Observer {
+            if (it) dialogManager?.showLoading()
+            else dialogManager?.hideLoading()
+        })
+        viewModel.onMessageError.observe(this, Observer {
+            context?.showToast(it.message ?: getString(R.string.text_have_error))
+        })
     }
 
     override fun bindView() {
@@ -50,20 +63,6 @@ class LoginFragment : BaseFragment(), OnClickListener {
 
             }
         }
-    }
-
-    private fun registerLiveData() {
-        viewModel.onLoginEvent.observe(this, Observer {
-            if (it)
-                replaceFragment(R.id.containerMain, homeFragment, false, HomeFragment::class.java.simpleName)
-        })
-        viewModel.onProgressDialogEvent.observe(this, Observer {
-            if (it) dialogManager?.showLoading()
-            else dialogManager?.hideLoading()
-        })
-        viewModel.onMessageError.observe(this, Observer {
-            context?.showToast(it.message ?: getString(R.string.text_have_error))
-        })
     }
 
     private fun validateLoginForm(email: String, password: String): Boolean {

@@ -19,9 +19,9 @@ object Constant {
     const val CONNECTION_TIMEOUT: Long = 30
 
     // URL
-    const val BASE_URL = "http://192.168.1.5:3000/"
+    const val BASE_URL = "http://192.168.1.4:3000/"
     const val LOCAL_HOST = "localhost"
-    const val IP = "192.168.1.5"
+    const val IP = "192.168.1.4"
 
     // Character
     const val SLASH = "/"
@@ -31,6 +31,7 @@ object Constant {
     const val ENTER_SPACE_FORMAT = "\n"
     const val KILOMETER = "km"
     const val DATETIME_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
+    const val DATETIME_FORMAT_FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS"
     const val PASSWORD_NUMBER_OF_CHARACTER = 6
     const val SHIFT_AM = "AM"
     const val SHIFT_PM = "PM"

@@ -9,7 +9,8 @@ fun RecyclerView.onScrollListener(layoutManager: RecyclerView.LayoutManager?, sw
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (layoutManager is LinearLayoutManager) {
-                swipeNotification.isEnabled = layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                if (layoutManager.childCount != 0)
+                    swipeNotification.isEnabled = layoutManager.findFirstCompletelyVisibleItemPosition() == 0
             }
         }
     })

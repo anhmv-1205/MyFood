@@ -77,12 +77,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
         })
     }
 
-    override fun bindView() {
-        registerLiveData()
-        viewModel.getCategories()
-    }
-
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.onCategoryEvent.observe(this, Observer {
             setDataForAdapter(it)
             dialogManager?.hideLoading()
@@ -92,6 +87,10 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
             context?.showToast(it.message.toString())
             dialogManager?.hideLoading()
         })
+    }
+
+    override fun bindView() {
+        viewModel.getCategories()
     }
 
     private fun setDataForAdapter(categories: MutableList<Category>) {

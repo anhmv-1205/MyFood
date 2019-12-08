@@ -31,6 +31,7 @@
     <string name="text_title_time_buy">Thời gian đến: <font fgcolor='#B2B1B2'>( &#706; 9am, &#706; 15pm)</font></string>
     <string name="text_time_hint">DD / MM / YYYY</string>
     <string name="text_time_format">dd / MM / yyyy</string>
+    <string name="text_time_format_hh_mm_dd_mm_yyyy">hh:mm, dd/MM/yyyy</string>
     <string name="text_am">AM</string>
     <string name="text_pm">PM</string>
     <string name="text_date_format">dd/MM/yyyy</string>
@@ -46,4 +47,13 @@
     <string name="text_order_status_canceled"><font color='#616161'>Đã hủy</font></string>
     <string name="text_order_status_rejected"><font color='#616161'>Bị từ chối</font></string>
     <string name="text_time_buy_and_shift">%1$s <b> - </b> %2$s</string>
+    <string name="text_approve">Chấp nhận</string>
+    <string name="text_reject">Từ chối</string>
+    <string name="text_done">Hoàn tất</string>
+    <string name="text_reorder">Đặt lại</string>
+    <string name="text_share_rate">Chia sẻ cảm nhận</string>
+    <string name="text_go_to">Đi đến</string>
+    <string name="text_information_order">Thông tin đơn hàng</string>
+    <string name="text_date_created_order">Đặt hàng vào lúc: %1$s</string>
+    <string name="text_date_created_account">Đã tạo vào lúc: %1$s</string>
 </resources>

@@ -33,6 +33,7 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpView()
+        registerLiveData()
         bindView()
     }
 
@@ -57,4 +58,6 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun setUpView()
 
     protected abstract fun bindView()
+
+    protected abstract fun registerLiveData()
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.sun_asterisk.myfood.data.local.database.AppDatabase
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefsImpl
+import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.repositories.CategoryRepository
 import com.sun_asterisk.myfood.data.repositories.FoodRepository
@@ -12,6 +13,8 @@ import com.sun_asterisk.myfood.data.repositories.TokenRepository
 import com.sun_asterisk.myfood.data.repositories.UserRepository
 import com.sun_asterisk.myfood.ui.category.CategoryFragment
 import com.sun_asterisk.myfood.ui.category.CategoryViewModel
+import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
+import com.sun_asterisk.myfood.ui.detail_order.DetailOrderViewModel
 import com.sun_asterisk.myfood.ui.foods.FoodsFragment
 import com.sun_asterisk.myfood.ui.foods.FoodsViewModel
 import com.sun_asterisk.myfood.ui.home.HomeFragment
@@ -46,6 +49,7 @@ var applicationModule = module {
     factory { LoginFragment() }
     factory { OrdersFragment() }
     factory { ProfileFragment() }
+    factory { (order: Order) -> DetailOrderFragment.newInstance(order) }
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
@@ -54,6 +58,7 @@ var applicationModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { OrdersViewModel(get()) }
+    viewModel { DetailOrderViewModel(get(), get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }

@@ -15,6 +15,9 @@ class ProfileFragment : BaseFragment() {
 
     override fun setUpView() {}
 
+    override fun registerLiveData() {
+    }
+
     override fun bindView() {
     }
 }

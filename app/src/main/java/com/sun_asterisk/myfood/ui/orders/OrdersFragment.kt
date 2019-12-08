@@ -12,13 +12,17 @@ import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.EndlessRecyclerOnScrollListener
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Order
+import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
 import com.sun_asterisk.myfood.utils.Constant
+import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
 import com.sun_asterisk.myfood.utils.extension.showToast
 import com.sun_asterisk.myfood.utils.livedata.autoCleared
 import kotlinx.android.synthetic.main.fragment_orders.recyclerViewOrders
 import kotlinx.android.synthetic.main.fragment_orders.swipeOrders
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshListener {
 
@@ -57,11 +61,10 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
     }
 
     override fun bindView() {
-        registerLiveData()
         viewModel.getOrdersOfUser()
     }
 
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.onGetOrdersEvent.observe(this, Observer {
             if (isRefresh) {
                 endlessRecyclerOnScrollListener.reset()
@@ -85,6 +88,13 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
     }
 
     override fun onItemViewClick(item: Order, position: Int) {
+        val detailOrderFragment: DetailOrderFragment by inject { parametersOf(item) }
+        addChildFragment(
+            R.id.containerMain,
+            detailOrderFragment,
+            true,
+            DetailOrderFragment::class.java.simpleName
+        )
     }
 
     override fun onRefresh() {
@@ -102,7 +112,7 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
 
     private fun checkLoadType() {
         if (isRefresh) {
-            recyclerViewOrders.smoothScrollToPosition(Constant.DEFAULT_PAGE)
+            recyclerViewOrders.smoothScrollToPosition(Constant.DEFAULT_VALUE)
             isRefresh = false
         }
         if (isLoadMore) {

@@ -42,6 +42,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         imageButtonPerson.setOnClickListener(this)
     }
 
+    override fun registerLiveData() {
+    }
+
     override fun bindView() {
     }
 

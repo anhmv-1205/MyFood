@@ -148,12 +148,7 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
         }
     }
 
-    override fun bindView() {
-        registerLiveData()
-        viewModel.getFoodsWithUserId(farmer.id)
-    }
-
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.onGetFoodEvent.observe(this, Observer {
             if (isRefresh) {
                 endlessRecyclerOnScrollListener.reset()
@@ -181,6 +176,10 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
                 else -> context?.showToast(it)
             }
         })
+    }
+
+    override fun bindView() {
+        viewModel.getFoodsWithUserId(farmer.id)
     }
 
     private fun getFoodsNotEmpty(): MutableList<Food> {

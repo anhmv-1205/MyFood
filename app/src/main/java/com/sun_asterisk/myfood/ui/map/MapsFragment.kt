@@ -44,7 +44,6 @@ import com.sun_asterisk.myfood.ui.main.OnActionBarListener
 import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
 import com.sun_asterisk.myfood.utils.extension.bitmapDescriptorFromVector
-import com.sun_asterisk.myfood.utils.extension.delayTask
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_map.toolbarMap
@@ -87,8 +86,6 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
             it.setupActionBar(toolbarMap.toolbar)
             toolbarMap.toolbar.textViewToolbarTitle.text = getString(R.string.my_food_map)
         }
-        dialogManager?.showLoading()
-        delayTask({ dialogManager?.hideLoading() }, 1500)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         context?.let { fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(it) }
@@ -103,10 +100,9 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     }
 
     override fun bindView() {
-        registerLiveData()
     }
 
-    private fun registerLiveData() {
+    override fun registerLiveData() {
         viewModel.user.observe(this, Observer {
             user = it
             arguments?.getString(EXTRA_ID_CATEGORY)?.let { categoryId ->
@@ -131,12 +127,15 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
         viewModel.onGetNumbersOfFoodByUserId.observe(this, Observer {
             it?.let { showDialog(it) }
-            dialogManager?.hideLoading()
         })
 
         viewModel.onMessageError.observe(this, Observer {
             context?.showToast(it.message.toString())
-            dialogManager?.hideLoading()
+        })
+
+        viewModel.onProgressDialogEvent.observe(this, Observer {
+            if (it) dialogManager?.showLoading()
+            else dialogManager?.hideLoading()
         })
     }
 
@@ -165,6 +164,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isMapToolbarEnabled = false
         map.setOnMarkerClickListener(this)
         setupMap()
     }
@@ -291,7 +291,6 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
     override fun onMarkerClick(marker: Marker?): Boolean {
         if (marker == this.marker) return false
-        dialogManager?.showLoading()
         farmer = farmers[markersFarmer.indexOf(marker)]
         viewModel.getNumbersFoodByUserId(farmer.id)
         return false
