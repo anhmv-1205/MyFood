@@ -184,7 +184,7 @@
 
                 <Button
                     android:id="@+id/buttonCancel"
-                    style="@style/ButtonOfOrder"
+                    style="@style/ButtonMyFood"
                     android:backgroundTint="@color/colorGrey500"
                     android:text="@string/text_cancel"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -195,7 +195,7 @@
 
                 <Button
                     android:id="@+id/buttonApprove"
-                    style="@style/ButtonOfOrder"
+                    style="@style/ButtonMyFood"
                     android:background="@drawable/bg_grey_border"
                     android:backgroundTint="@color/colorBlue500"
                     android:text="@string/text_approve"
@@ -207,7 +207,7 @@
 
                 <Button
                     android:id="@+id/buttonReject"
-                    style="@style/ButtonOfOrder"
+                    style="@style/ButtonMyFood"
                     android:backgroundTint="@color/colorRed500"
                     android:fontFamily="@font/nexabold"
                     android:text="@string/text_reject"
@@ -219,7 +219,7 @@
 
                 <Button
                     android:id="@+id/buttonDone"
-                    style="@style/ButtonOfOrder"
+                    style="@style/ButtonMyFood"
                     android:backgroundTint="@color/colorGreen500"
                     android:text="@string/text_done"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -230,7 +230,7 @@
 
                 <Button
                     android:id="@+id/buttonReorder"
-                    style="@style/ButtonOfOrder"
+                    style="@style/ButtonMyFood"
                     android:backgroundTint="@color/colorBlue500"
                     android:text="@string/text_reorder"
                     app:layout_constraintBottom_toBottomOf="parent"

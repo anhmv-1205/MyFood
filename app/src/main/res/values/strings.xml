@@ -56,4 +56,6 @@
     <string name="text_information_order">Thông tin đơn hàng</string>
     <string name="text_date_created_order">Đặt hàng vào lúc: %1$s</string>
     <string name="text_date_created_account">Đã tạo vào lúc: %1$s</string>
+    <string name="text_log_out">Đăng xuất</string>
+    <string name="text_display_role">--- %1$s ---</string>
 </resources>

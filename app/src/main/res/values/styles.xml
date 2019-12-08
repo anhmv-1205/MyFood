@@ -20,7 +20,7 @@
         <item name="colorControlActivated">@color/colorTextLogo</item>
     </style>
 
-    <style name="ButtonOfOrder">
+    <style name="ButtonMyFood">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_marginTop">@dimen/dp_8</item>
         <item name="android:layout_marginStart">@dimen/dp_16</item>
@@ -32,5 +32,34 @@
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ViewWrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ViewNoWidth">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ViewWrapContent.TextTitleStandard">
+        <item name="android:fontFamily">@font/nexabold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="ViewWrapContent.TextTitleStandard.TextTitleStandardBlack">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ViewNoWidth.EditText">
+        <item name="android:layout_margin">@dimen/dp_16</item>
+        <item name="android:background">@drawable/bg_grey_border</item>
+        <item name="android:backgroundTint">@color/colorGrey300</item>
+        <item name="android:drawablePadding">@dimen/dp_8</item>
+        <item name="android:fontFamily">@font/nexalight</item>
+        <item name="android:padding">@dimen/dp_8</item>
     </style>
 </resources>
