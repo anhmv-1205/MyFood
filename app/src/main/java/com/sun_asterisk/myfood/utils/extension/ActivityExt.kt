@@ -19,8 +19,26 @@ fun AppCompatActivity.addFragmentToActivity(
     }, animateType)
 }
 
+fun AppCompatActivity.replaceFragmentInActivity(
+    @IdRes containerId: Int, fragment: Fragment,
+    addToBackStack: Boolean = true,
+    tag: String = fragment::class.java.simpleName,
+    animateType: AnimateType = AnimateType.FADE
+) {
+    supportFragmentManager.transact({
+        if (addToBackStack) {
+            addToBackStack(tag)
+        }
+        replace(containerId, fragment, tag)
+    }, animateType)
+}
+
 fun AppCompatActivity.goBackFragment(): Boolean {
     val isShowPreviousPage = supportFragmentManager.backStackEntryCount > 0
     if (isShowPreviousPage) supportFragmentManager.popBackStackImmediate()
     return isShowPreviousPage
+}
+
+fun AppCompatActivity.clearAllFragment() {
+    repeat((0..supportFragmentManager.backStackEntryCount).count()) { supportFragmentManager.popBackStackImmediate() }
 }
