@@ -9,6 +9,7 @@ import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.ui.category.CategoryFragment
 import com.sun_asterisk.myfood.ui.orders.OrdersFragment
 import com.sun_asterisk.myfood.ui.profile.ProfileFragment
+import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_home.imageButtonFavorite
 import kotlinx.android.synthetic.main.fragment_home.imageButtonHome
 import kotlinx.android.synthetic.main.fragment_home.imageButtonPerson
@@ -32,7 +33,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun setUpView() {
         toolbarHome.toolbar.navigationIcon = null
         homePagerAdapter =
-            HomePagerAdapter(fragmentManager!!, arrayListOf(ordersFragment, categoryFragment, profileFragment))
+            HomePagerAdapter(childFragmentManager, arrayListOf(ordersFragment, categoryFragment, profileFragment))
         viewPagerHome.offscreenPageLimit = PAGE_LIMIT
         viewPagerHome.adapter = homePagerAdapter
         viewPagerHome.currentItem = Type.CATEGORY.value

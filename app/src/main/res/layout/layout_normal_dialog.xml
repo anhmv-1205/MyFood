@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_16"
+    app:cardCornerRadius="@dimen/dp_8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nexalight"
+            android:padding="@dimen/dp_20"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewMessageLine"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/colorGrey300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMessage" />
+
+        <TextView
+            android:id="@+id/textViewCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_grey_light_select"
+            android:fontFamily="@font/nexalight"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/text_cancel"
+            android:textColor="@color/colorGrey700"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewButtonLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMessageLine" />
+
+        <TextView
+            android:id="@+id/textViewButtonLine"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="0dp"
+            android:background="@color/colorGrey300"
+            app:layout_constraintBottom_toBottomOf="@id/textViewConfirm"
+            app:layout_constraintEnd_toStartOf="@id/textViewConfirm"
+            app:layout_constraintStart_toEndOf="@id/textViewCancel"
+            app:layout_constraintTop_toTopOf="@id/textViewConfirm" />
+
+        <TextView
+            android:id="@+id/textViewConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_grey_light_select"
+            android:fontFamily="@font/nexalight"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/text_ok"
+            android:textColor="@color/colorRed500"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewButtonLine"
+            app:layout_constraintTop_toBottomOf="@id/textViewMessageLine" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

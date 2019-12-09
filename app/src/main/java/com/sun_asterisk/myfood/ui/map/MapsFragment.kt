@@ -41,8 +41,8 @@ import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.ui.foods.FoodsFragment
 import com.sun_asterisk.myfood.ui.main.OnActionBarListener
-import com.sun_asterisk.myfood.utils.extension.addChildFragment
 import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
+import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.bitmapDescriptorFromVector
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.showToast
@@ -244,9 +244,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
-
         locationRequest.interval = INTERVAL
-
         locationRequest.fastestInterval = FASTEST_INTERVAL
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
@@ -327,7 +325,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         buttonDetail.setOnClickListener {
             val foodsFragment: FoodsFragment by inject { parametersOf(farmer) }
             alertDialog.dismiss()
-            addChildFragment(R.id.containerMain, foodsFragment, true, FoodsFragment::class.java.simpleName)
+            addFragmentToActivity(R.id.containerMain, foodsFragment, true, FoodsFragment::class.java.simpleName)
         }
 
         alertDialog.setView(dialogView)

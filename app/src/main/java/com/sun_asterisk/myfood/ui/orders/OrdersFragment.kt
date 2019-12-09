@@ -14,7 +14,7 @@ import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
 import com.sun_asterisk.myfood.utils.Constant
-import com.sun_asterisk.myfood.utils.extension.addChildFragment
+import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
 import com.sun_asterisk.myfood.utils.extension.showToast
 import com.sun_asterisk.myfood.utils.livedata.autoCleared
@@ -89,7 +89,7 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
 
     override fun onItemViewClick(item: Order, position: Int) {
         val detailOrderFragment: DetailOrderFragment by inject { parametersOf(item) }
-        addChildFragment(
+        addFragmentToActivity(
             R.id.containerMain,
             detailOrderFragment,
             true,

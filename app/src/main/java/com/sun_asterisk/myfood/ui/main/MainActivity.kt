@@ -7,6 +7,7 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.R.id
 import com.sun_asterisk.myfood.R.layout
 import com.sun_asterisk.myfood.base.BaseActivity
+import com.sun_asterisk.myfood.ui.login.LoginFragment
 import com.sun_asterisk.myfood.ui.splash.SplashFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
@@ -15,7 +16,7 @@ import com.sun_asterisk.myfood.utils.extension.goBackFragment
 import com.sun_asterisk.myfood.utils.extension.showToast
 import org.koin.android.ext.android.inject
 
-class MainActivity : BaseActivity(), OnActionBarListener {
+class MainActivity : BaseActivity(), OnActionBarListener, OnCallBackLogoutListener {
 
     private val splashFragment: SplashFragment by inject()
     private var isDoubleTapBack = false
@@ -67,5 +68,15 @@ class MainActivity : BaseActivity(), OnActionBarListener {
         delayTask({
             isDoubleTapBack = false
         }, Constant.MAX_TIME_DOUBLE_CLICK_EXIT)
+    }
+
+    override fun onLogoutReceived() {
+        val loginFragment: LoginFragment by inject()
+        addFragmentToActivity(
+            id.containerMain,
+            loginFragment,
+            false,
+            LoginFragment::class.java.simpleName
+        )
     }
 }

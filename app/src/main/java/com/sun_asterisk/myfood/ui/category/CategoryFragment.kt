@@ -16,7 +16,7 @@ import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.ui.map.MapsFragment
-import com.sun_asterisk.myfood.utils.extension.addChildFragment
+import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_category.recyclerViewCategory
 import org.koin.android.ext.android.inject
@@ -44,7 +44,6 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun setUpView() {
-        dialogManager?.showLoading()
         mCategoryAdapter = CategoryAdapter(context!!, mutableListOf())
         mCategoryAdapter.setOnItemCategoryListener(this)
         recyclerViewCategory.apply {
@@ -80,12 +79,10 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     override fun registerLiveData() {
         viewModel.onCategoryEvent.observe(this, Observer {
             setDataForAdapter(it)
-            dialogManager?.hideLoading()
         })
 
         viewModel.onMessageError.observe(this, Observer {
             context?.showToast(it.message.toString())
-            dialogManager?.hideLoading()
         })
     }
 
@@ -106,7 +103,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
 
     override fun onItemViewClick(item: Category, position: Int) {
         val mapsFragment: MapsFragment by inject { parametersOf(item.id) }
-        addChildFragment(R.id.containerMain, mapsFragment, true, MapsFragment::class.java.simpleName)
+        addFragmentToActivity(R.id.containerMain, mapsFragment, true, MapsFragment::class.java.simpleName)
     }
 
     companion object {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -28,6 +29,21 @@ fun Fragment.replaceFragment(
     }, animateType)
 }
 
+fun Fragment.addFragment(
+    @IdRes containerId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean = false,
+    tag: String = fragment::class.java.simpleName,
+    animateType: AnimateType = FADE
+) {
+    fragmentManager?.transact({
+        if (addToBackStack) {
+            addToBackStack(tag)
+        }
+        add(containerId, fragment, tag)
+    }, animateType)
+}
+
 fun Fragment.addChildFragment(
     @IdRes containerId: Int,
     fragment: Fragment,
@@ -35,7 +51,7 @@ fun Fragment.addChildFragment(
     tag: String = fragment::class.java.simpleName,
     animateType: AnimateType? = FADE
 ) {
-    fragmentManager?.transact({
+    childFragmentManager.transact({
         if (addToBackStack) {
             addToBackStack(tag)
         }
@@ -70,6 +86,21 @@ fun Fragment.showChildFragment(@IdRes containerId: Int, vararg hideFragments: Fr
     }
 }
 
+fun Fragment.addFragmentToActivity(
+    @IdRes containerId: Int, fragment: Fragment,
+    addToBackStack: Boolean = true,
+    tag: String = fragment::class.java.simpleName
+    , animateType: AnimateType? = FADE
+) {
+    (this.activity as AppCompatActivity).addFragmentToActivity(
+        containerId,
+        fragment,
+        addToBackStack,
+        tag,
+        animateType
+    )
+}
+
 inline fun FragmentManager.transact(
     action: FragmentTransaction.() -> Unit,
     animateType: AnimateType? = FADE
@@ -82,10 +113,10 @@ inline fun FragmentManager.transact(
 
 fun setCustomAnimations(
     transaction: FragmentTransaction,
-    animateType: AnimateType? = AnimateType.FADE
+    animateType: AnimateType? = FADE
 ) {
     when (animateType) {
-        AnimateType.FADE -> transaction.setCustomAnimations(
+        FADE -> transaction.setCustomAnimations(
             R.anim.fade_in, R.anim.fade_out,
             R.anim.fade_in,
             R.anim.fade_out

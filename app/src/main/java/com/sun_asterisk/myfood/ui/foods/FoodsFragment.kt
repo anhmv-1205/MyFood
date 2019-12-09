@@ -227,7 +227,13 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
                 if (validateForm()) {
                     foodSelected?.let {
                         val createOrderRequest =
-                            CreateOrderRequest(it.farmerId, it.id, dateBuy, shift, editTextNote.text.toString())
+                            CreateOrderRequest(
+                                it.farmerId,
+                                it.id,
+                                dateBuy,
+                                shift,
+                                editTextNote.text.toString().trim()
+                            )
                         viewModel.createOrder(createOrderRequest)
                     }
                 } else {
