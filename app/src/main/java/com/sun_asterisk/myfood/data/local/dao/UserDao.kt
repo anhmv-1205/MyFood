@@ -14,6 +14,9 @@ interface UserDao {
     @Query("SELECT * FROM user LIMIT 1")
     fun getUser(): LiveData<User>
 
+    @Query("SELECT USER.role FROM user as USER")
+    suspend fun getRole(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User): Long
 

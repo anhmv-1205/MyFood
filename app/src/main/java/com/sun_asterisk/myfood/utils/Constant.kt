@@ -19,9 +19,9 @@ object Constant {
     const val CONNECTION_TIMEOUT: Long = 30
 
     // URL
-    const val BASE_URL = "http://192.168.1.4:3000/"
+    const val BASE_URL = "http://192.168.0.110:3000/"
     const val LOCAL_HOST = "localhost"
-    const val IP = "192.168.1.4"
+    const val IP = "192.168.0.110"
 
     // Character
     const val SLASH = "/"
@@ -37,4 +37,20 @@ object Constant {
     const val SHIFT_PM = "PM"
     const val SHIFT_AM_HOUR_RULE = 9
     const val SHIFT_PM_HOUR_RULE = 15
+
+    // Image
+    const val REQUEST_IMAGE_CAPTURE = 0
+    const val REQUEST_GALLERY_IMAGE = 1
+    const val REQUEST_SETTING = 101
+    const val ASPECT_RATIO_X = 1F
+    const val ASPECT_RATIO_Y = 1F
+    const val IMAGE_COMPRESSION_QUALITY = 80
+    const val BITMAP_MAX_WIDTH = 1000
+    const val BITMAP_MAX_HEIGHT = 1000
+    const val CHILD_CAMERA = "camera"
+    const val SCHEME_PACKAGE = "package"
+
+    const val IMAGE_TYPE = "image/*"
+    const val PART_FILE = "file"
+    const val IMAGE_FILE_FORMAT = ".jpg"
 }

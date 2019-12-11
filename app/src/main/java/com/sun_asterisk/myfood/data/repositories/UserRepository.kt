@@ -14,6 +14,8 @@ class UserRepository(
 
     override fun getUser() = local.getUser()
 
+    override suspend fun getRoleOfUser() = local.getRoleOfUser()
+
     override suspend fun insertUser(user: User) = local.insertUser(user)
 
     override suspend fun updateUser(user: User) = local.updateUser(user)

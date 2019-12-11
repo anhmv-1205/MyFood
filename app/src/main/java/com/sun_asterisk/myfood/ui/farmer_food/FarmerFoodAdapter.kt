@@ -1,4 +1,4 @@
-package com.sun_asterisk.myfood.ui.foods
+package com.sun_asterisk.myfood.ui.farmer_food
 
 import android.content.Context
 import android.view.View
@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.sun_asterisk.myfood.R
+import com.sun_asterisk.myfood.R.layout
 import com.sun_asterisk.myfood.base.recyclerview.BaseRecyclerViewAdapter
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Food
+import com.sun_asterisk.myfood.ui.foods.FoodsDiffCallBack
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
@@ -23,15 +25,27 @@ import kotlinx.android.synthetic.main.item_food_vertical.view.textViewCost
 import kotlinx.android.synthetic.main.item_food_vertical.view.textViewFoodName
 import kotlinx.android.synthetic.main.item_food_vertical.view.textViewOutOfFood
 
-class FoodAdapter(context: Context, dataList: MutableList<Food>) :
+class FarmerFoodAdapter(context: Context, dataList: MutableList<Food>) :
     BaseRecyclerViewAdapter<Food, ViewHolder>(context, dataList = dataList) {
 
     private var lastPosition = Constant.INVALID_VALUE
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM)
-            FoodViewHolder(layoutInflater.inflate(R.layout.item_food_vertical, parent, false), itemClickListener)
-        else ItemLoading(layoutInflater.inflate(R.layout.item_bottom_loading, parent, false))
+            FoodViewHolder(
+                layoutInflater.inflate(
+                    layout.item_food_vertical,
+                    parent,
+                    false
+                ), itemClickListener
+            )
+        else ItemLoading(
+            layoutInflater.inflate(
+                layout.item_bottom_loading,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

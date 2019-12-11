@@ -44,6 +44,7 @@ import com.sun_asterisk.myfood.ui.main.OnActionBarListener
 import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.bitmapDescriptorFromVector
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_map.toolbarMap
@@ -288,6 +289,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
+        if (isMultiClick()) return false
         if (marker == this.marker) return false
         farmer = farmers[markersFarmer.indexOf(marker)]
         viewModel.getNumbersFoodByUserId(farmer.id)

@@ -18,6 +18,7 @@ import com.sun_asterisk.myfood.utils.annotation.OrderStatus
 import com.sun_asterisk.myfood.utils.annotation.Role
 import com.sun_asterisk.myfood.utils.extension.gone
 import com.sun_asterisk.myfood.utils.extension.hide
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
@@ -226,6 +227,7 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
     }
 
     override fun onClick(v: View?) {
+        if (isMultiClick()) return
         when (v?.id) {
             R.id.textViewDirection -> {
             }

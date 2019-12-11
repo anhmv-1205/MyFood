@@ -12,6 +12,7 @@ import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.ui.home.HomeFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.isEmailValid
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.replaceFragment
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_login.buttonLogin
@@ -53,6 +54,7 @@ class LoginFragment : BaseFragment(), OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        if (isMultiClick()) return
         when (v?.id) {
             R.id.buttonLogin -> {
                 val email = editTextEmail.text.toString().trim()

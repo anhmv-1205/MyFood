@@ -10,6 +10,8 @@ interface UserDataSource {
     interface Local {
         fun getUser(): LiveData<User>
 
+        suspend fun getRoleOfUser(): Int
+
         suspend fun insertUser(user: User): Long
 
         suspend fun updateUser(user: User)

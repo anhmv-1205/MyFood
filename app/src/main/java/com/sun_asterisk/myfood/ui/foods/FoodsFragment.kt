@@ -24,6 +24,7 @@ import com.sun_asterisk.myfood.utils.extension.compareTimeWithCurrent
 import com.sun_asterisk.myfood.utils.extension.createCalendarWithFormat
 import com.sun_asterisk.myfood.utils.extension.delayTask
 import com.sun_asterisk.myfood.utils.extension.fadeOutWithAnimation
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
@@ -203,16 +204,18 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
     private fun loadMore(currentPage: Int) {
         isLoadMore = true
         this.currentPage = currentPage
-        foodAdapter.setFoods(foodAdapter.getData().union(mutableListOf(Food())).toMutableList())
+        foodAdapter.addLoadingItem()
     }
 
     override fun onRefresh() {
         isRefresh = true
         viewModel.getFoodsWithUserId(farmer.id)
+        foodAdapter.setLastPositionItem()
         swipeFoods.isRefreshing = false
     }
 
     override fun onClick(v: View?) {
+        if (isMultiClick()) return
         when (v?.id) {
             R.id.imageViewClose -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             R.id.editTextTimeBuy -> {
