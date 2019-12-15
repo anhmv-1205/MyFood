@@ -15,6 +15,7 @@ import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
 import com.sun_asterisk.myfood.utils.extension.showToast
 import com.sun_asterisk.myfood.utils.livedata.autoCleared
@@ -88,6 +89,7 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
     }
 
     override fun onItemViewClick(item: Order, position: Int) {
+        if (isMultiClick()) return
         val detailOrderFragment: DetailOrderFragment by inject { parametersOf(item) }
         addFragmentToActivity(
             R.id.containerMain,
@@ -107,7 +109,7 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
     private fun loadMore(currentPage: Int) {
         isLoadMore = true
         this.currentPage = currentPage
-        ordersAdapter.setOrders(ordersAdapter.getData().union(mutableListOf(Order())).toMutableList())
+        ordersAdapter.addLoadingItem()
     }
 
     private fun checkLoadType() {

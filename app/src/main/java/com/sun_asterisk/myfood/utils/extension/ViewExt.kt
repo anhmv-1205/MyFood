@@ -1,5 +1,6 @@
 package com.sun_asterisk.myfood.utils.extension
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
@@ -40,6 +41,23 @@ fun Context.showDatePickerDialog(calendar: Calendar = Calendar.getInstance(), li
     val dd = calendar.get(Calendar.DAY_OF_MONTH)
     val datePicker = DatePickerDialog(
         this, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val timeStr = "$year-" + (month + 1) + "-$dayOfMonth"
+            listener.onDataSet(timeStr)
+        }, yyyy, mm, dd
+    )
+    datePicker.show()
+}
+
+fun Context.showDatePickerHoloLightDialog(
+    calendar: Calendar = Calendar.getInstance(),
+    listener: OnDataCalendarListener
+) {
+    val yyyy = calendar.get(Calendar.YEAR)
+    val mm = calendar.get(Calendar.MONTH)
+    val dd = calendar.get(Calendar.DAY_OF_MONTH)
+    val themeIds = AlertDialog.THEME_HOLO_LIGHT
+    val datePicker = DatePickerDialog(
+        this, themeIds, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val timeStr = "$year-" + (month + 1) + "-$dayOfMonth"
             listener.onDataSet(timeStr)
         }, yyyy, mm, dd

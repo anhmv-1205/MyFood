@@ -10,8 +10,12 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.ui.home.HomeFragment
+import com.sun_asterisk.myfood.ui.register.RegisterFragment
+import com.sun_asterisk.myfood.utils.AnimateType.SLIDE_TO_RIGHT
 import com.sun_asterisk.myfood.utils.Constant
+import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.isEmailValid
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.replaceFragment
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_login.buttonLogin
@@ -25,6 +29,7 @@ class LoginFragment : BaseFragment(), OnClickListener {
 
     private val viewModel: LoginViewModel by viewModel()
     private val homeFragment: HomeFragment by inject()
+    private val registerFragment: RegisterFragment by inject()
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -53,6 +58,7 @@ class LoginFragment : BaseFragment(), OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        if (isMultiClick()) return
         when (v?.id) {
             R.id.buttonLogin -> {
                 val email = editTextEmail.text.toString().trim()
@@ -60,7 +66,12 @@ class LoginFragment : BaseFragment(), OnClickListener {
                 if (validateLoginForm(email, password)) viewModel.login(SignInRequest(email, password))
             }
             R.id.textViewRegister -> {
-
+                addFragmentToActivity(
+                    R.id.containerMain,
+                    registerFragment,
+                    true,
+                    RegisterFragment::class.java.simpleName, SLIDE_TO_RIGHT
+                )
             }
         }
     }

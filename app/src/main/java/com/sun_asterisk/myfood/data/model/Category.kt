@@ -1,8 +1,11 @@
 package com.sun_asterisk.myfood.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Category(
     @SerializedName("_id")
     @Expose
@@ -16,4 +19,4 @@ data class Category(
     @SerializedName("img_url")
     @Expose
     val imageUrl: String
-)
+): Parcelable

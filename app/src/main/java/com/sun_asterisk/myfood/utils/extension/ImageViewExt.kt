@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.annotation.OrderStatus
+import java.io.File
 
 fun ImageView.loadImageUrl(url: String?, imageError: Int? = null) {
     if (imageError != null)
@@ -26,4 +27,10 @@ fun ImageView.setIconByStatusStatus(status: String) {
             else -> R.drawable.ic_cancel
         }
     )
+}
+
+fun ImageView.loadImagePath(path: String) {
+    Glide.with(context)
+        .load(File(path))
+        .into(this)
 }

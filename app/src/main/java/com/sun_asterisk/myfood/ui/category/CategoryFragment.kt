@@ -17,6 +17,7 @@ import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.ui.map.MapsFragment
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
+import com.sun_asterisk.myfood.utils.extension.isMultiClick
 import com.sun_asterisk.myfood.utils.extension.showToast
 import kotlinx.android.synthetic.main.fragment_category.recyclerViewCategory
 import org.koin.android.ext.android.inject
@@ -102,6 +103,7 @@ class CategoryFragment : BaseFragment(), OnItemClickListener<Category> {
     }
 
     override fun onItemViewClick(item: Category, position: Int) {
+        if (isMultiClick()) return
         val mapsFragment: MapsFragment by inject { parametersOf(item.id) }
         addFragmentToActivity(R.id.containerMain, mapsFragment, true, MapsFragment::class.java.simpleName)
     }

@@ -1,10 +1,13 @@
 package com.sun_asterisk.myfood.utils.extension
 
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.SystemClock
+import android.provider.OpenableColumns
 import android.view.Gravity
 import android.view.LayoutInflater
 import com.sun_asterisk.myfood.R
@@ -13,7 +16,7 @@ import kotlinx.android.synthetic.main.layout_normal_dialog.view.textViewCancel
 import kotlinx.android.synthetic.main.layout_normal_dialog.view.textViewConfirm
 import kotlinx.android.synthetic.main.layout_normal_dialog.view.textViewMessage
 
-private const val VALUE_MAX_TIME_CLICK = 1000
+private const val VALUE_MAX_TIME_CLICK = 500
 private var lastClickTime: Long = 0
 
 fun isMultiClick(time: Int = VALUE_MAX_TIME_CLICK): Boolean {
@@ -49,4 +52,16 @@ fun Context.showAlertDialogBasic(
         .create()
     dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog.show()
+}
+
+fun queryName(resolver: ContentResolver, uri: Uri): String {
+    val returnCursor = resolver.query(uri, null, null, null, null)
+    var name = ""
+    returnCursor?.let {
+        val nameIndex = it.getColumnIndex((OpenableColumns.DISPLAY_NAME))
+        it.moveToFirst()
+        name = it.getString(nameIndex)
+    }
+    returnCursor?.close()
+    return name
 }

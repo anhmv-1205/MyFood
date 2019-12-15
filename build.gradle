@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -20,6 +20,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -58,4 +59,6 @@ ext {
     glideVersion = '4.10.0'
     circleimageviewVersion = '4.1.0'
     spinKitVersion = '1.4.0'
+    ucropVersion = '2.2.4'
+    dexterVersion = '6.0.1'
 }

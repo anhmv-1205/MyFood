@@ -3,6 +3,7 @@ package com.sun_asterisk.myfood.ui.foods
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -25,6 +26,8 @@ import kotlinx.android.synthetic.main.item_food_vertical.view.textViewOutOfFood
 class FoodAdapter(context: Context, dataList: MutableList<Food>) :
     BaseRecyclerViewAdapter<Food, ViewHolder>(context, dataList = dataList) {
 
+    private var lastPosition = Constant.INVALID_VALUE
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM)
             FoodViewHolder(layoutInflater.inflate(R.layout.item_food_vertical, parent, false), itemClickListener)
@@ -32,7 +35,10 @@ class FoodAdapter(context: Context, dataList: MutableList<Food>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (holder is FoodViewHolder) holder.bindData(dataList[position])
+        if (holder is FoodViewHolder) {
+            holder.bindData(dataList[position])
+            setAnimation(holder.itemView, position)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -44,11 +50,34 @@ class FoodAdapter(context: Context, dataList: MutableList<Food>) :
         updateData(foods, DiffUtil.calculateDiff(FoodsDiffCallBack(getData(), foods)))
     }
 
+    fun addLoadingItem() {
+        if (dataList[dataList.size - 1].id.isNotEmpty()) {
+            dataList.add(Food())
+            notifyItemRangeInserted(dataList.size - 1, 1)
+        }
+    }
+
     fun removeLoadingItem() {
         if (dataList.size > Constant.DEFAULT_VALUE && dataList[dataList.size - 1].id.isEmpty()) {
             dataList.removeAt(dataList.size - 1)
             notifyItemRangeRemoved(dataList.size - 1, 1)
         }
+    }
+
+    private fun setAnimation(view: View, position: Int) {
+        if (position > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(context, R.anim.from_right)
+            view.startAnimation(animation)
+            lastPosition = position
+        }
+    }
+
+    fun setLastPositionItem(position: Int = Constant.INVALID_VALUE) {
+        lastPosition = position
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        if (holder is FoodViewHolder) holder.clearAnimation()
     }
 
     companion object {
@@ -65,7 +94,7 @@ class FoodAdapter(context: Context, dataList: MutableList<Food>) :
                     itemView.textViewCost.text = context.getString(
                         R.string.text_display_food_cost,
                         food.cost,
-                        food.unitCost ?: "",
+                        if (food.unitCost!!.isNotEmpty()) food.unitCost else context.getString(R.string.text_vn_money),
                         food.unitFood
                     )
                     itemView.textViewAmountBuy.text =
@@ -75,6 +104,10 @@ class FoodAdapter(context: Context, dataList: MutableList<Food>) :
                     itemView.imageViewFood.loadImageUrl(food.imgUrl.replaceIpAddress())
                     setOnClickListener { listener?.onItemViewClick(food, adapterPosition) }
                 }
+            }
+
+            fun clearAnimation() {
+                itemView.clearAnimation()
             }
         }
 

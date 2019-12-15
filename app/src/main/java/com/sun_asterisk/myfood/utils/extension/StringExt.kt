@@ -3,12 +3,19 @@ package com.sun_asterisk.myfood.utils.extension
 import android.text.TextUtils
 import android.util.Patterns
 import com.sun_asterisk.myfood.utils.Constant
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.regex.Pattern
 
 fun List<String>.toStringWithFormatPattern(format: String): String {
     if (this.isEmpty()) {
@@ -92,3 +99,17 @@ fun String.createCalendarWithFormat(format: String = Constant.DATETIME_FORMAT_YY
     val date = this.toDate(format)
     return Calendar.getInstance().apply { time = date }
 }
+
+fun String.toRequestBodyImageType(partName: String = Constant.PART_FILE): MultipartBody.Part {
+    val file = File(this)
+    val requestBody = file.asRequestBody("image/*".toMediaType())
+    return MultipartBody.Part.createFormData(partName, file.name, requestBody)
+}
+
+fun String.toRequestBodyTextType(): RequestBody {
+    return this.toRequestBody("text/plain".toMediaType())
+}
+
+const val REG = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}\$"
+var PATTERN: Pattern = Pattern.compile(REG)
+fun CharSequence.isPhoneNumber(): Boolean = this.length == Constant.PHONE_LENGTH

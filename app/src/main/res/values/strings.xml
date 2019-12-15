@@ -20,7 +20,8 @@
     <string name="text_password">Mật khẩu</string>
     <string name="text_login">Đăng nhập</string>
     <string name="text_not_a_member">Bạn không phải là thành viên ?</string>
-    <string name="text_register">Đăng kí ngay!</string>
+    <string name="text_register_now">Đăng kí ngay!</string>
+    <string name="text_register">Đăng kí</string>
     <string name="text_email_not_empty">Vui lòng nhập email!</string>
     <string name="text_email_wrong_format">Sai định dạng email!</string>
     <string name="text_password_not_empty">Vui lòng nhập mật khẩu!</string>
@@ -37,11 +38,12 @@
     <string name="text_pm">PM</string>
     <string name="text_date_format">dd/MM/yyyy</string>
     <string name="text_time_buy_error">Không thể nhập thời gian trong quá khứ!</string>
-    <string name="text_not_empty">Trường này không được để trống!</string>ước
+    <string name="text_not_empty">Trường này không được để trống!</string>
+    <string name="text_wrong_phone_number_type">Sai định dạng số điện thoại</string>
     <string name="text_order_success">Đặt thành công!</string>
     <string name="text_order_duplicate">Không thể thực hiện vì đơn hàng đã được đạt trước và chưa hoàn tất!</string>
-    <string name="text_title_order">C a r t</string>
-    <string name="text_title_profile">P r o f i l e</string>
+    <string name="text_title_order">Đơn Hàng</string>
+    <string name="text_title_profile">Thông tin cá nhân</string>
     <string name="text_order_status_requesting"><font color='#f44336'>Đang yêu cầu</font></string>
     <string name="text_order_status_approved"><font color='#2196f3'>Đã chấp nhận</font></string>
     <string name="text_order_status_done"><font color='#4caf50'>Hoàn tất</font></string>
@@ -61,4 +63,55 @@
     <string name="text_display_farmer">--- Farmer ---</string>
     <string name="text_display_buyer">--- Buyer ---</string>
     <string name="text_confirm_logout">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="text_no_data">Không có dữ liệu！</string>
+    <string name="text_title_my_food">Thực phẩm của bạn</string>
+    <string name="text_title_category">Loại thực phẩm</string>
+    <string name="text_placeholder_input_food_name">Tên thực phẩm</string>
+    <string name="text_placeholder_input_food_cost">Giá</string>
+    <string name="text_food_unit">Đơn vị</string>
+    <string name="text_create">Tạo</string>
+    <string name="text_create_food">Tạo sản phẩm</string>
+    <string name="text_vn_money">đ</string>
+    <string name="dialog_permission_title">Cấp quyền</string>
+    <string name="dialog_permission_message">Ứng dụng cần được cấp phép để sử dụng tính năng này. Bạn có thể cấp chúng trong phần cài đặt ứng dụng.</string>
+    <string name="go_to_settings">ĐI TỚI MỤC CÀI ĐẶT</string>
+    <string name="text_image_options">Chọn ảnh</string>
+    <string name="text_take_camera_picture">\tChụp ảnh</string>
+    <string name="text_choose_from_gallery">\tThư viện</string>
+    <string name="text_unit_error">Vui lòng chọn đơn vị</string>
+    <string name="text_category_error">Vui lòng chọn loại thực phẩm</string>
+    <string name="text_no_image_error">Vui lòng thêm ảnh cho thực phẩm</string>
+    <string name="text_no_name_error">Vui lòng nhập tên của thực phẩm</string>
+    <string name="text_no_cost_error">Vui lòng nhập giá của thực phẩm</string>
+    <string name="text_create_food_success">Tạo mới sản phẩm thành công!</string>
+    <string name="text_show_cost">Giá: %1$s đ/ %2$s</string>
+    <string name="text_name">Tên</string>
+    <string name="text_phone_number">Số điện thoại</string>
+    <string name="text_birthday">Ngày sinh</string>
+    <string name="text_farmer_rb">Nông dân</string>
+    <string name="text_buyer_rb">Khách hàng</string>
+    <string name="text_password_confirm">Xác nhận mật khẩu</string>
+    <string name="text_wrong_password">Mật khẩu không trùng khớp</string>
+    <string name="text_register_success">Tạo tài khoản thành công</string>
+    <string name="text_need_permission_title">Cấp quyền</string>
+    <string name="text_need_permission_message">Ứng dụng cần được cấp quyền để thực hiện chức năng này.</string>
+    <string name="text_go_to_setting">ĐI TỚI CÀI ĐẶT</string>
+    <string name="text_no_food">\t Tạm hết</string>
+    <string name="text_have_food">\t Còn hàng</string>
+    <string name="text_edit">\t Sửa</string>
+    <string name="text_delete">\t Xóa</string>
+    <string name="text_request_location">Bạn cần cung cấp quyền truy cập vị trí để trở thành người bán?</string>
+
+
+    <string-array name="imageOptions">
+        <item>\tChụp ảnh</item>
+        <item>\tThư viện</item>
+    </string-array>
+
+    <string-array name="units">
+        <item><b>Đơn vị</b></item>
+        <item>Kg</item>
+        <item>Gam</item>
+        <item>Bó</item>
+    </string-array>
 </resources>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey50"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:src="@drawable/body_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/toolbarCreateFood"
+        layout="@layout/layout_toolbar" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_32"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_3"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarCreateFood"
+        app:layout_constraintWidth_percent="0.3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_camera_placeholder" />
+
+            <ImageButton
+                android:id="@+id/imageButtonSelectImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_select_image_rectangle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextFoodName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_32"
+        android:background="@drawable/bg_grey_border"
+        android:backgroundTint="@color/colorGrey300"
+        android:drawableStart="@drawable/ic_order"
+        android:drawablePadding="@dimen/dp_8"
+        android:drawableTint="@color/colorGrey500"
+        android:fontFamily="@font/nexalight"
+        android:hint="@string/text_placeholder_input_food_name"
+        android:paddingStart="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_8"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewImage"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <EditText
+        android:id="@+id/editTextCost"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@drawable/bg_grey_border"
+        android:backgroundTint="@color/colorGrey300"
+        android:drawableStart="@drawable/ic_money"
+        android:drawablePadding="@dimen/dp_4"
+        android:fontFamily="@font/nexalight"
+        android:hint="@string/text_placeholder_input_food_cost"
+        android:inputType="numberDecimal"
+        android:paddingStart="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_8"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintEnd_toEndOf="@id/editTextFoodName"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/editTextFoodName"
+        app:layout_constraintTop_toBottomOf="@id/editTextFoodName"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/textViewCostDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:fontFamily="@font/nexabold"
+        android:text="Giá: 17000Đ/1kg"
+        android:textColor="@color/colorGrey500"
+        app:layout_constraintEnd_toEndOf="@id/editTextFoodName"
+        app:layout_constraintStart_toStartOf="@id/editTextCost"
+        app:layout_constraintTop_toBottomOf="@id/editTextCost" />
+
+    <Spinner
+        android:id="@+id/spinnerUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:background="@drawable/bg_grey_border"
+        android:backgroundTint="@color/colorGrey300"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="@id/editTextFoodName"
+        app:layout_constraintStart_toEndOf="@+id/editTextCost"
+        app:layout_constraintTop_toTopOf="@id/editTextCost" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/bg_grey_border"
+        android:backgroundTint="@color/colorGrey300"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerUnit"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/editTextCost"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCostDetail"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <Button
+        android:id="@+id/buttonCreate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_grey_border"
+        android:backgroundTint="@color/colorGreen500"
+        android:fontFamily="@font/nexabold"
+        android:text="@string/text_create"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGrey50"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintWidth_percent="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.loadImageUrl
 import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
 import com.sun_asterisk.myfood.utils.extension.setStatusOfOrder
+import com.sun_asterisk.myfood.utils.extension.setStatusTextColor
 import com.sun_asterisk.myfood.utils.extension.toDateWithFormat
 import kotlinx.android.synthetic.main.item_order.view.imageViewFood
 import kotlinx.android.synthetic.main.item_order.view.textViewFoodName
@@ -43,6 +44,13 @@ class OrdersAdapter(context: Context, dataList: MutableList<Order>) :
     override fun getItemViewType(position: Int): Int {
         return if (dataList[position].id.isEmpty()) VIEW_TYPE_LOADING
         else VIEW_TYPE_ITEM
+    }
+
+    fun addLoadingItem() {
+        if (dataList[dataList.size - 1].id.isNotEmpty()) {
+            dataList.add(Order())
+            notifyItemRangeInserted(dataList.size - 1, 1)
+        }
     }
 
     fun removeLoadingItem() {
@@ -95,6 +103,7 @@ class OrdersAdapter(context: Context, dataList: MutableList<Order>) :
                         ), order.shift.toUpperCase(Locale.US)
                     )
                     itemView.textViewStatus.setStatusOfOrder(order.status)
+                    itemView.textViewStatus.setStatusTextColor(order.status)
                     itemView.imageViewFood.loadImageUrl(order.food.imgUrl.replaceIpAddress())
                     setOnClickListener { listener?.onItemViewClick(order, adapterPosition) }
                 }

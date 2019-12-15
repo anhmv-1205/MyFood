@@ -72,18 +72,18 @@
             app:layout_constraintStart_toStartOf="@id/textViewFarmerBirthday"
             app:layout_constraintTop_toBottomOf="@id/textViewFarmerBirthday" />
 
-        <TextView
+        <Button
             android:id="@+id/textViewDirection"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_40"
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             android:background="@drawable/bg_grey_border"
             android:backgroundTint="@color/colorRed500"
-            android:padding="@dimen/dp_8"
             android:paddingStart="@dimen/dp_16"
             android:paddingEnd="@dimen/dp_16"
             android:text="@string/text_go_to"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
