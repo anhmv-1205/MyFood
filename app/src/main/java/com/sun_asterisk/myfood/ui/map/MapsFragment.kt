@@ -71,6 +71,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
     private var farmers = mutableListOf<User>()
     private lateinit var farmer: User
     private lateinit var user: User
+    private var isAllowAccessLocation = false
     private val viewModel: MapsViewModel by viewModel()
 
     override fun onAttach(context: Context) {
@@ -95,6 +96,17 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
                 super.onLocationResult(result)
                 lastLocation = result.lastLocation
                 placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
+                if (!isAllowAccessLocation) {
+                    map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(
+                                lastLocation.latitude,
+                                lastLocation.longitude
+                            ), DEFAULT_ZOOM
+                        )
+                    )
+                    isAllowAccessLocation = true
+                }
             }
         }
         createLocationRequest()
@@ -132,11 +144,6 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
 
         viewModel.onMessageError.observe(this, Observer {
             context?.showToast(it.message.toString())
-        })
-
-        viewModel.onProgressDialogEvent.observe(this, Observer {
-            if (it) dialogManager?.showLoading()
-            else dialogManager?.hideLoading()
         })
     }
 
@@ -339,6 +346,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         onActionBarListener = null
     }
 
+    override fun onStop() {
+        super.onStop()
+        isAllowAccessLocation = false
+    }
+
     companion object {
         private val TAG = MapsFragment::class.java.simpleName
         private const val EXTRA_ID_CATEGORY = "EXTRA_ID_CATEGORY"
@@ -346,7 +358,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
         private const val PLACE_PICKER_REQUEST = 3
-        private const val DEFAULT_ZOOM = 10f
+        private const val DEFAULT_ZOOM = 8f
         private const val MAX_RESULTS = 1
         private const val INTERVAL = 10000L
         private const val FASTEST_INTERVAL = 5000L

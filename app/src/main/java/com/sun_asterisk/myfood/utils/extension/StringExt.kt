@@ -15,6 +15,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.regex.Pattern
 
 fun List<String>.toStringWithFormatPattern(format: String): String {
     if (this.isEmpty()) {
@@ -108,3 +109,7 @@ fun String.toRequestBodyImageType(partName: String = Constant.PART_FILE): Multip
 fun String.toRequestBodyTextType(): RequestBody {
     return this.toRequestBody("text/plain".toMediaType())
 }
+
+const val REG = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}\$"
+var PATTERN: Pattern = Pattern.compile(REG)
+fun CharSequence.isPhoneNumber(): Boolean = this.length == Constant.PHONE_LENGTH

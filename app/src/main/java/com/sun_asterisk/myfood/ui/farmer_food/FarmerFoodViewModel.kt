@@ -3,6 +3,8 @@ package com.sun_asterisk.myfood.ui.farmer_food
 import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.data.model.Food
+import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
+import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.repositories.CategoryRepository
 import com.sun_asterisk.myfood.data.repositories.FoodRepository
 import com.sun_asterisk.myfood.utils.Constant
@@ -17,6 +19,10 @@ class FarmerFoodViewModel(
 ) : BaseViewModel() {
 
     val onGetFoodsOfFarmerEvent: SingleLiveEvent<MutableList<Food>> by lazy { SingleLiveEvent<MutableList<Food>>() }
+
+    val onDeleteFoodEvent: SingleLiveEvent<ApiResponse<Any>> by lazy { SingleLiveEvent<ApiResponse<Any>>() }
+
+    val onUpdateStateOfFoodEvent: SingleLiveEvent<ApiResponse<Food>> by lazy { SingleLiveEvent<ApiResponse<Food>>() }
 
     val onMessageErrorEvent: SingleLiveEvent<String> by lazy { SingleLiveEvent<String>() }
 
@@ -46,6 +52,36 @@ class FarmerFoodViewModel(
                     return@launch
                 }
                 onGetFoodsOfFarmerEvent.value = result.data.foods
+            } catch (ex: Exception) {
+                onMessageErrorEvent.value = ex.message
+            }
+        }
+    }
+
+    fun deleteUserById(foodId: String) {
+        coroutineScope.launch(Dispatchers.Main) {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    foodRepository.deleteFoodById(foodId)
+                }
+                onDeleteFoodEvent.value = result
+            } catch (ex: Exception) {
+                onMessageErrorEvent.value = ex.message
+            }
+        }
+    }
+
+    fun updateStateOfFood(foodId: String, updateFoodRequest: UpdateFoodRequest) {
+        coroutineScope.launch(Dispatchers.Main) {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    foodRepository.updateFood(foodId, updateFoodRequest)
+                }
+                if (result.data == null) {
+                    onMessageErrorEvent.value = result.message
+                    return@launch
+                }
+                onUpdateStateOfFoodEvent.value = result
             } catch (ex: Exception) {
                 onMessageErrorEvent.value = ex.message
             }

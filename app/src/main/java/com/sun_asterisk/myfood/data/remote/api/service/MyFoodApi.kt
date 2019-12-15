@@ -5,7 +5,9 @@ import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
+import com.sun_asterisk.myfood.data.remote.request.RegisterRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
+import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
 import com.sun_asterisk.myfood.data.remote.response.OrderResponse
@@ -14,6 +16,7 @@ import com.sun_asterisk.myfood.utils.Constant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -41,6 +44,9 @@ interface MyFoodApi {
     @GET("/users/{userId}")
     suspend fun getUserByUserId(@Path("userId") userId: String): ApiResponse<User>
 
+    @POST("register")
+    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<User>
+
     // Food
     @GET("foods/{userId}")
     suspend fun getFoodsWithIdUser(@Path("userId") userId: String, @Query("page") page: Int = Constant.DEFAULT_PAGE): ApiResponse<FoodResponse>
@@ -57,6 +63,12 @@ interface MyFoodApi {
         @Part("cost") cost: RequestBody,
         @Part("unit") unit: RequestBody
     ): ApiResponse<Food>
+
+    @DELETE("/foods/{foodId}")
+    suspend fun deleteFoodById(@Path("foodId") foodId: String): ApiResponse<Any>
+
+    @PUT("/foods/{foodId}")
+    suspend fun updateFood(@Path("foodId") foodId: String, @Body updateFoodRequest: UpdateFoodRequest): ApiResponse<Food>
 
     // Order
     @POST("order")

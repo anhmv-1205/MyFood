@@ -1,6 +1,8 @@
 package com.sun_asterisk.myfood.ui.detail_order
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,6 +67,7 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
     private val viewModel: DetailOrderViewModel by viewModel()
     private var order: Order? = null
     private var owner: User? = null
+    private var partner: User? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -101,8 +104,12 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
 
         viewModel.onUserEvent.observe(this, Observer {
             owner.notNull { owner ->
-                if (owner.role == Role.BUYER) setupViewForBuyer(it)
-                else setupViewForFarmer(it)
+                if (owner.role == Role.BUYER) {
+                    setupViewForBuyer(it)
+                } else {
+                    setupViewForFarmer(it)
+                }
+                partner = it
             }
         })
 
@@ -230,10 +237,17 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
         if (isMultiClick()) return
         when (v?.id) {
             R.id.textViewDirection -> {
+                context?.showToast("here")
+                directionToFarmerLocation()
             }
+
             R.id.textViewRate -> {
             }
             R.id.imageViewPhone -> {
+                partner?.let {
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse(Constant.TELL + it.phone))
+                    startActivity(intent)
+                }
             }
             R.id.buttonCancel -> viewModel.updateOrderStatus(order!!.id, OrderStatus.CANCELED)
 
@@ -244,6 +258,17 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener {
             R.id.buttonDone -> viewModel.updateOrderStatus(order!!.id, OrderStatus.DONE)
 
             R.id.buttonReorder -> {
+            }
+        }
+    }
+
+    private fun directionToFarmerLocation() {
+        partner?.location?.let {
+            val gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr=${it[0]},${it[1]}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            activity?.let { fragmentActivity ->
+                if (mapIntent.resolveActivity(fragmentActivity.packageManager) != null)
+                    startActivity(mapIntent)
             }
         }
     }

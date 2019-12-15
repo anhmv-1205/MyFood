@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey50"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_top_splash_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_bottom_splash_screen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_4"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.15" />
+
+            <TextView
+                android:id="@+id/textViewLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nexabold"
+                android:text="@string/my_food"
+                android:textColor="@color/colorTextLogo"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
+                app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/text_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLogo"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/text_name"
+                app:layout_constraintEnd_toEndOf="@id/editTextEmail"
+                app:layout_constraintStart_toStartOf="@id/editTextEmail"
+                app:layout_constraintTop_toBottomOf="@id/editTextEmail"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <EditText
+                android:id="@+id/editTextPhoneNumber"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/text_phone_number"
+                android:inputType="phone"
+                app:layout_constraintEnd_toEndOf="@id/editTextName"
+                app:layout_constraintStart_toStartOf="@id/editTextName"
+                app:layout_constraintTop_toBottomOf="@id/editTextName"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <EditText
+                android:id="@+id/editTextBirthDay"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/dp_8"
+                android:focusable="false"
+                android:hint="@string/text_birthday"
+                android:inputType="phone"
+                app:layout_constraintEnd_toEndOf="@id/editTextPhoneNumber"
+                app:layout_constraintStart_toStartOf="@id/editTextPhoneNumber"
+                app:layout_constraintTop_toBottomOf="@id/editTextPhoneNumber"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupRole"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingEnd="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="@id/editTextBirthDay"
+                app:layout_constraintStart_toStartOf="@id/editTextBirthDay"
+                app:layout_constraintTop_toBottomOf="@id/editTextBirthDay">
+
+                <RadioButton
+                    android:id="@+id/radioButtonRoleFarmer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nexalight"
+                    android:padding="@dimen/dp_4"
+                    android:text="@string/text_farmer_rb"
+                    android:textSize="@dimen/sp_16" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonRoleBuyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:checked="true"
+                    android:fontFamily="@font/nexalight"
+                    android:padding="@dimen/dp_4"
+                    android:text="@string/text_buyer_rb"
+                    android:textSize="@dimen/sp_16" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/text_password"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@id/radioGroupRole"
+                app:layout_constraintStart_toStartOf="@id/radioGroupRole"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupRole"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <EditText
+                android:id="@+id/editTextPasswordConfirm"
+                style="@style/ViewNoWidth.EditTextNormal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/text_password_confirm"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@id/editTextPassword"
+                app:layout_constraintStart_toStartOf="@id/editTextPassword"
+                app:layout_constraintTop_toBottomOf="@id/editTextPassword"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@drawable/bg_grey_border"
+                android:backgroundTint="@color/colorGreen500"
+                android:fontFamily="@font/nexabold"
+                android:text="@string/text_register"
+                android:textColor="@color/colorGrey50"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextPasswordConfirm"
+                app:layout_constraintWidth_percent="0.6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="@dimen/dp_8"
+        android:fontFamily="@font/nexabold"
+        android:gravity="center"
+        android:padding="@dimen/dp_8"
+        android:text="@string/text_login"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

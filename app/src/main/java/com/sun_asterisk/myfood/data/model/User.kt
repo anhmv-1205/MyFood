@@ -27,6 +27,9 @@ data class User(
     @SerializedName("birthday")
     @Expose
     val birthday: String = "",
+    @SerializedName("img_url")
+    @Expose
+    val avatar: String = "",
     @SerializedName("date_created")
     @Expose
     val dateCreated: String = "",

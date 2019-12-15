@@ -19,11 +19,11 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        dialogManager = if (context is BaseActivity) {
-//            (activity as BaseActivity).dialogManager
-//        } else {
-//            DialogManagerImpl(context)
-//        }
+        dialogManager = if (context is BaseActivity) {
+            (activity as BaseActivity).dialogManager
+        } else {
+            DialogManagerImpl(context)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

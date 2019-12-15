@@ -4,6 +4,7 @@ import com.sun_asterisk.myfood.data.datasource.UserDataSource
 import com.sun_asterisk.myfood.data.local.localdatasource.UserLocalDataSource
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.remotedatasource.UserRemoteDataSource
+import com.sun_asterisk.myfood.data.remote.request.RegisterRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import org.koin.core.KoinComponent
 
@@ -29,4 +30,6 @@ class UserRepository(
     override suspend fun getNumbersOfFoodByUserId(userId: String) = remote.getNumbersOfFoodByUserId(userId)
 
     override suspend fun getUserByUserId(userId: String) = remote.getUserByUserId(userId)
+
+    override suspend fun register(registerRequest: RegisterRequest) = remote.register(registerRequest)
 }

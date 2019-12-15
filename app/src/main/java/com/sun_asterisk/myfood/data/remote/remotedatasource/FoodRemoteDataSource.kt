@@ -2,6 +2,7 @@ package com.sun_asterisk.myfood.data.remote.remotedatasource
 
 import com.sun_asterisk.myfood.data.datasource.FoodDataSource
 import com.sun_asterisk.myfood.data.remote.api.service.MyFoodApi
+import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
 import okhttp3.MultipartBody
@@ -21,4 +22,11 @@ class FoodRemoteDataSource(private val myFoodApi: MyFoodApi) : FoodDataSource.Re
         cost: RequestBody,
         unit: RequestBody
     ) = myFoodApi.createFood(categoryId, file, name, cost, unit)
+
+    override suspend fun deleteFoodById(foodId: String) = myFoodApi.deleteFoodById(foodId)
+
+    override suspend fun updateFood(
+        foodId: String,
+        updateFoodRequest: UpdateFoodRequest
+    ) = myFoodApi.updateFood(foodId, updateFoodRequest)
 }

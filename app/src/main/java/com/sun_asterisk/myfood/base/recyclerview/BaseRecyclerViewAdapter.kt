@@ -63,7 +63,7 @@ constructor(
     fun replaceItem(item: T, position: Int) {
         if (position < 0 || position >= dataList.size) return
         dataList[position] = item
-        notifyItemInserted(position)
+        notifyItemRangeChanged(position, 1)
     }
 
     fun registerItemClickListener(onItemClickListener: OnItemClickListener<T>) {

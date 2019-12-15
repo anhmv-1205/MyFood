@@ -1,5 +1,6 @@
 package com.sun_asterisk.myfood.ui.farmer_food
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +12,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.EndlessRecyclerOnScrollListener
+import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
 import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.data.model.Food
+import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
 import com.sun_asterisk.myfood.ui.create_food.CreateFoodFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.isMultiClick
+import com.sun_asterisk.myfood.utils.extension.notNull
 import com.sun_asterisk.myfood.utils.extension.onScrollListener
 import com.sun_asterisk.myfood.utils.extension.showToast
 import com.sun_asterisk.myfood.utils.livedata.autoCleared
@@ -27,7 +31,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
+class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener, OnItemClickListener<Food> {
 
     private var farmerFoodAdapter: FarmerFoodAdapter by autoCleared()
     private lateinit var endlessRecyclerOnScrollListener: EndlessRecyclerOnScrollListener
@@ -35,6 +39,8 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
     private var isLoadMore = false
     private var currentPage = Constant.DEFAULT_PAGE
     private var categories: MutableList<Category>? = null
+    private var positionFoodDeleted = Constant.INVALID_VALUE
+    private var positionFoodUpdated = Constant.INVALID_VALUE
 
     private val viewModel: FarmerFoodViewModel by viewModel()
 
@@ -44,7 +50,7 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
 
     override fun setUpView() {
         farmerFoodAdapter = FarmerFoodAdapter(context!!, mutableListOf())
-        //farmerFoodAdapter.registerItemClickListener(this)
+        farmerFoodAdapter.registerItemClickListener(this)
         swipeFarmerFood.setColorSchemeResources(R.color.colorGrey500)
         swipeFarmerFood.setOnRefreshListener(this)
         floatButtonAddFood.setOnClickListener(this)
@@ -108,6 +114,17 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
             categories = it
         })
 
+        viewModel.onDeleteFoodEvent.observe(this, Observer {
+            farmerFoodAdapter.removeItem(positionFoodDeleted)
+        })
+
+        viewModel.onUpdateStateOfFoodEvent.observe(this, Observer {
+            it.data.notNull { foodUpdated ->
+                farmerFoodAdapter.replaceItem(foodUpdated, positionFoodUpdated)
+            }
+
+        })
+
         viewModel.onMessageErrorEvent.observe(this, Observer {
             if (it.isNotEmpty()) context?.showToast(it)
         })
@@ -143,6 +160,10 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
         }
     }
 
+    override fun onItemViewClick(item: Food, position: Int) {
+        showImagePickerFoodOptions(item, position)
+    }
+
     private fun checkLoadType() {
         if (isRefresh) {
             recyclerViewFarmerFood.smoothScrollToPosition(Constant.DEFAULT_VALUE)
@@ -152,5 +173,37 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener {
             viewModel.getFoodsOfUser(currentPage)
             isLoadMore = false
         }
+    }
+
+    private fun showImagePickerFoodOptions(food: Food, position: Int) {
+        AlertDialog.Builder(context).apply {
+            setTitle(food.name)
+            val options = arrayOf(
+                if (food.state) getString(R.string.text_no_food) else getString(R.string.text_have_food),
+                getString(R.string.text_edit),
+                getString(R.string.text_delete)
+            )
+            setItems(options) { _, which ->
+                when (which) {
+                    FoodOption.UPDATE_STATUS.value -> {
+                        viewModel.updateStateOfFood(food.id, UpdateFoodRequest(state = !food.state))
+                        positionFoodUpdated = position
+                    }
+                    FoodOption.EDIT.value -> {
+                        context?.showToast("edit")
+                    }
+                    FoodOption.DELETE.value -> {
+                        viewModel.deleteUserById(food.id)
+                        positionFoodDeleted = position
+                    }
+                    else -> {
+                    }
+                }
+            }
+        }.create().show()
+    }
+
+    enum class FoodOption(val value: Int) {
+        UPDATE_STATUS(0), EDIT(1), DELETE(2)
     }
 }

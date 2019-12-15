@@ -16,15 +16,12 @@ class MapsViewModel(private val userRepository: UserRepository) : BaseViewModel(
 
     val user: LiveData<User> = userRepository.getUser()
 
-    val onProgressDialogEvent: SingleLiveEvent<Boolean> by lazy { SingleLiveEvent<Boolean>() }
-
     val onMessageError: MutableLiveData<Exception> by lazy { MutableLiveData<Exception>() }
 
     val onGetNumbersOfFoodByUserId: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
     fun getUserByCategoryId(categoryId: String) {
         coroutineScope.launch(Dispatchers.Main) {
-//            onProgressDialogEvent.value = true
             try {
                 val result = withContext(Dispatchers.IO) {
                     userRepository.getUsersWithCategoryId(categoryId)
@@ -33,13 +30,11 @@ class MapsViewModel(private val userRepository: UserRepository) : BaseViewModel(
             } catch (exception: Exception) {
                 onMessageError.value = exception
             }
-//            onProgressDialogEvent.value = false
         }
     }
 
     fun getNumbersFoodByUserId(userId: String) {
         coroutineScope.launch(Dispatchers.Main) {
-            onProgressDialogEvent.value = true
             try {
                 val result = withContext(Dispatchers.IO) {
                     userRepository.getNumbersOfFoodByUserId(userId)
@@ -48,7 +43,6 @@ class MapsViewModel(private val userRepository: UserRepository) : BaseViewModel(
             } catch (exception: Exception) {
                 onMessageError.value = exception
             }
-            onProgressDialogEvent.value = false
         }
     }
 }

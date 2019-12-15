@@ -25,6 +25,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.sun_asterisk.myfood.R
+import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.utils.AnimateType
 import com.sun_asterisk.myfood.utils.AnimateType.FADE
 import com.sun_asterisk.myfood.utils.Constant
