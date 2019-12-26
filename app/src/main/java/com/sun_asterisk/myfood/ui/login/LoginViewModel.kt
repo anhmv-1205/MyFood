@@ -20,13 +20,13 @@ class LoginViewModel(private val tokenRepository: TokenRepository, private val u
 
     fun login(signInRequest: SignInRequest) {
         coroutineScope.launch(Dispatchers.Main) {
-            onProgressDialogEvent.value = true
+//            onProgressDialogEvent.value = true
             try {
                 val result = withContext(Dispatchers.IO) {
                     userRepository.signIn(signInRequest)
                 }
                 if (result.user == null || result.token == null) {
-                    onProgressDialogEvent.value = false
+//                    onProgressDialogEvent.value = false
                     onMessageError.value = Exception(result.message)
                     return@launch
                 }
@@ -37,7 +37,7 @@ class LoginViewModel(private val tokenRepository: TokenRepository, private val u
                 onLoginEvent.value = true
             } catch (ex: Exception) {
                 onMessageError.value = ex
-                onProgressDialogEvent.value = false
+//                onProgressDialogEvent.value = false
             }
         }
     }

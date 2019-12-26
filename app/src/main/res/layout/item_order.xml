@@ -26,7 +26,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageViewFood"
+                android:id="@+id/imageViewFoodOfOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -55,7 +55,7 @@
             android:foreground="?attr/selectableItemBackground">
 
             <TextView
-                android:id="@+id/textViewFoodName"
+                android:id="@+id/textViewFoodNameOfOrder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_20"
@@ -80,9 +80,9 @@
                 android:textColor="@color/colorGrey700"
                 android:textSize="@dimen/sp_12"
                 app:layout_constraintBottom_toTopOf="@+id/textViewStatus"
-                app:layout_constraintEnd_toEndOf="@+id/textViewFoodName"
-                app:layout_constraintStart_toStartOf="@+id/textViewFoodName"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFoodName" />
+                app:layout_constraintEnd_toEndOf="@+id/textViewFoodNameOfOrder"
+                app:layout_constraintStart_toStartOf="@+id/textViewFoodNameOfOrder"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFoodNameOfOrder" />
 
             <TextView
                 android:id="@+id/textViewStatus"

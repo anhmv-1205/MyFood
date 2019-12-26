@@ -11,6 +11,7 @@ import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.base.recyclerview.EndlessRecyclerOnScrollListener
 import com.sun_asterisk.myfood.base.recyclerview.OnItemClickListener
+import com.sun_asterisk.myfood.base.recyclerview.OnRefreshItemListener
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
 import com.sun_asterisk.myfood.utils.Constant
@@ -25,7 +26,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshListener {
+class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshListener, OnRefreshItemListener<Order> {
 
     private var ordersAdapter: OrdersAdapter by autoCleared()
     private val viewModel: OrdersViewModel by viewModel()
@@ -76,8 +77,8 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
             }
         })
         viewModel.onProgressDialogEvent.observe(this, Observer {
-            if (it) dialogManager?.showLoading()
-            else dialogManager?.hideLoading()
+            //            if (it) dialogManager?.showLoading()
+//            else dialogManager?.hideLoading()
         })
         viewModel.onMessageErrorEvent.observe(this, Observer {
             context?.showToast(it)
@@ -121,5 +122,13 @@ class OrdersFragment : BaseFragment(), OnItemClickListener<Order>, OnRefreshList
             viewModel.getOrdersOfUser(currentPage)
             isLoadMore = false
         }
+    }
+
+    override fun onCreateItem(item: Order) {
+        ordersAdapter.updateOrder(item)
+    }
+
+    override fun onUpdateItem(item: Order) {
+        ordersAdapter.addItem(item, Constant.DEFAULT_VALUE)
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.sun_asterisk.myfood.data.local.database.AppDatabase
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefsImpl
 import com.sun_asterisk.myfood.data.model.Category
+import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.repositories.CategoryRepository
@@ -18,6 +19,8 @@ import com.sun_asterisk.myfood.ui.create_food.CreateFoodFragment
 import com.sun_asterisk.myfood.ui.create_food.CreateFoodViewModel
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderViewModel
+import com.sun_asterisk.myfood.ui.edit_food.EditFoodFragment
+import com.sun_asterisk.myfood.ui.edit_food.EditFoodViewModel
 import com.sun_asterisk.myfood.ui.farmer_food.FarmerFoodFragment
 import com.sun_asterisk.myfood.ui.farmer_food.FarmerFoodViewModel
 import com.sun_asterisk.myfood.ui.foods.FoodsFragment
@@ -62,6 +65,7 @@ var applicationModule = module {
     factory { FarmerFoodFragment() }
     factory { (categories: ArrayList<Category>) -> CreateFoodFragment.newInstance(categories) }
     factory { RegisterFragment() }
+    factory { (food: Food, categories: ArrayList<Category>) -> EditFoodFragment.newInstance(food, categories) }
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
@@ -76,6 +80,7 @@ var applicationModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { CreateFoodViewModel(get(), get()) }
     viewModel { RegisterViewModel(get()) }
+    viewModel { EditFoodViewModel(get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }
@@ -83,5 +88,6 @@ var applicationModule = module {
 }
 
 fun provideAppDatabase(context: Context): AppDatabase {
-    return Room.databaseBuilder(context, AppDatabase::class.java, Constant.DATABASE_NAME).build()
+    return Room.databaseBuilder(context, AppDatabase::class.java, Constant.DATABASE_NAME)
+        .fallbackToDestructiveMigration().build()
 }

@@ -8,7 +8,7 @@ object Constant {
     const val TIME_DELAY = 1500L
     const val TIME_DELAY_SHORT = 500L
     const val THUMBNAIL_MULTIPLIER = 0.1F
-    const val RULE_NEW_FOOD_FOLLOW_DAY = 7
+    const val RULE_NEW_FOOD_FOLLOW_DAY = 2
     const val MAX_TIME_DOUBLE_CLICK_EXIT = 2000L
 
     // Room database
@@ -20,9 +20,9 @@ object Constant {
     const val CONNECTION_TIMEOUT: Long = 30
 
     // URL
-    const val BASE_URL = "http://192.168.0.103:3000/"
+    const val BASE_URL = "http://192.168.0.106:3000/"
     const val LOCAL_HOST = "localhost"
-    const val IP = "192.168.0.103"
+    const val IP = "192.168.0.106"
 
     // Character
     const val SLASH = "/"

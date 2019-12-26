@@ -25,7 +25,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.sun_asterisk.myfood.R
-import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.utils.AnimateType
 import com.sun_asterisk.myfood.utils.AnimateType.FADE
 import com.sun_asterisk.myfood.utils.Constant
@@ -305,4 +304,11 @@ fun Fragment.checkCameraAndGalleryPermission(fileName: String) {
                 token?.continuePermissionRequest()
             }
         }).check()
+}
+
+fun Fragment.handleUCropResult(data: Intent?): String? {
+    if (data == null) return null
+    var partImage: String? = null
+    UCrop.getOutput(data)?.let { it.path?.let { part -> { partImage = part } } }
+    return partImage
 }

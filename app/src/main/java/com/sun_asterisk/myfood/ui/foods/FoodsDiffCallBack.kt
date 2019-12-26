@@ -25,5 +25,6 @@ class FoodsDiffCallBack(
             && oldFood.cost == newFood.cost
             && oldFood.unitFood == newFood.unitFood
             && oldFood.imgUrl == newFood.imgUrl
+            && oldFood.categoryId == newFood.categoryId
     }
 }

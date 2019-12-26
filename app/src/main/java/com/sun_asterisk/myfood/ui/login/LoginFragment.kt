@@ -29,7 +29,6 @@ class LoginFragment : BaseFragment(), OnClickListener {
 
     private val viewModel: LoginViewModel by viewModel()
     private val homeFragment: HomeFragment by inject()
-    private val registerFragment: RegisterFragment by inject()
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -46,8 +45,8 @@ class LoginFragment : BaseFragment(), OnClickListener {
                 replaceFragment(R.id.containerMain, homeFragment, false, HomeFragment::class.java.simpleName)
         })
         viewModel.onProgressDialogEvent.observe(this, Observer {
-            if (it) dialogManager?.showLoading()
-            else dialogManager?.hideLoading()
+            //            if (it) dialogManager?.showLoading()
+//            else dialogManager?.hideLoading()
         })
         viewModel.onMessageError.observe(this, Observer {
             context?.showToast(it.message ?: getString(R.string.text_have_error))
@@ -66,6 +65,8 @@ class LoginFragment : BaseFragment(), OnClickListener {
                 if (validateLoginForm(email, password)) viewModel.login(SignInRequest(email, password))
             }
             R.id.textViewRegister -> {
+                clearEditTextError()
+                val registerFragment: RegisterFragment by inject()
                 addFragmentToActivity(
                     R.id.containerMain,
                     registerFragment,
@@ -98,5 +99,10 @@ class LoginFragment : BaseFragment(), OnClickListener {
             return false
         }
         return true
+    }
+
+    private fun clearEditTextError() {
+        editTextEmail.error = null
+        editTextPassword.error = null
     }
 }

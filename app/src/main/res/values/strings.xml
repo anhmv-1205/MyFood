@@ -43,7 +43,8 @@
     <string name="text_order_success">Đặt thành công!</string>
     <string name="text_order_duplicate">Không thể thực hiện vì đơn hàng đã được đạt trước và chưa hoàn tất!</string>
     <string name="text_title_order">Đơn Hàng</string>
-    <string name="text_title_profile">Thông tin cá nhân</string>
+    <string name="text_title_profile">Cá nhân</string>
+    <string name="text_title_user_information">Thông tin cá nhân</string>
     <string name="text_order_status_requesting"><font color='#f44336'>Đang yêu cầu</font></string>
     <string name="text_order_status_approved"><font color='#2196f3'>Đã chấp nhận</font></string>
     <string name="text_order_status_done"><font color='#4caf50'>Hoàn tất</font></string>
@@ -71,6 +72,9 @@
     <string name="text_food_unit">Đơn vị</string>
     <string name="text_create">Tạo</string>
     <string name="text_create_food">Tạo sản phẩm</string>
+    <string name="text_edit_food">Cập nhật sản phẩm</string>
+    <string name="text_title_button_edit">Cập nhật</string>
+    <string name="text_edit_food_success">Cập nhật thành công</string>
     <string name="text_vn_money">đ</string>
     <string name="dialog_permission_title">Cấp quyền</string>
     <string name="dialog_permission_message">Ứng dụng cần được cấp phép để sử dụng tính năng này. Bạn có thể cấp chúng trong phần cài đặt ứng dụng.</string>

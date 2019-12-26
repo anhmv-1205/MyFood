@@ -28,5 +28,14 @@ interface FoodDataSource {
             foodId: String,
             updateFoodRequest: UpdateFoodRequest
         ): ApiResponse<Food>
+
+        suspend fun editFood(
+            foodId: String,
+            categoryId: RequestBody,
+            file: MultipartBody.Part?,
+            name: RequestBody,
+            cost: RequestBody,
+            unit: RequestBody
+        ): ApiResponse<Food>
     }
 }
