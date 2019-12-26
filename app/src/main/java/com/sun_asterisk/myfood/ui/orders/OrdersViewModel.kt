@@ -19,7 +19,7 @@ class OrdersViewModel(private val ordersRepository: OrderRepository) : BaseViewM
 
     fun getOrdersOfUser(page: Int = Constant.DEFAULT_PAGE) {
         coroutineScope.launch(Dispatchers.Main) {
-            onProgressDialogEvent.value = true
+            //onProgressDialogEvent.value = true
             try {
                 val result = withContext(Dispatchers.IO) {
                     ordersRepository.getOrdersOfUser(page)
@@ -33,7 +33,7 @@ class OrdersViewModel(private val ordersRepository: OrderRepository) : BaseViewM
                 println(ex.message)
                 onMessageErrorEvent.value = ex.message
             }
-            onProgressDialogEvent.value = false
+            //onProgressDialogEvent.value = false
         }
     }
 }

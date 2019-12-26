@@ -163,7 +163,6 @@ class FoodsFragment : BaseFragment(), OnRefreshListener, OnItemClickListener<Foo
         viewModel.onCreateOrderEvent.observe(this, Observer {
             if (it) context?.showToast(getString(R.string.text_order_success))
             delayTask({ bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED })
-
         })
         viewModel.onProgressEvent.observe(this, Observer {
             if (it && !swipeFoods.isRefreshing) dialogManager?.showLoading()

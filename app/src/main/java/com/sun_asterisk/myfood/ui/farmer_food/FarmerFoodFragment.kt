@@ -17,6 +17,7 @@ import com.sun_asterisk.myfood.data.model.Category
 import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
 import com.sun_asterisk.myfood.ui.create_food.CreateFoodFragment
+import com.sun_asterisk.myfood.ui.edit_food.EditFoodFragment
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.extension.addFragmentToActivity
 import com.sun_asterisk.myfood.utils.extension.isMultiClick
@@ -122,7 +123,6 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener, O
             it.data.notNull { foodUpdated ->
                 farmerFoodAdapter.replaceItem(foodUpdated, positionFoodUpdated)
             }
-
         })
 
         viewModel.onMessageErrorEvent.observe(this, Observer {
@@ -190,7 +190,13 @@ class FarmerFoodFragment : BaseFragment(), OnRefreshListener, OnClickListener, O
                         positionFoodUpdated = position
                     }
                     FoodOption.EDIT.value -> {
-                        context?.showToast("edit")
+                        val editFoodFragment: EditFoodFragment by inject { parametersOf(food, categories) }
+                        addFragmentToActivity(
+                            R.id.containerMain,
+                            editFoodFragment,
+                            true,
+                            EditFoodFragment::class.java.simpleName
+                        )
                     }
                     FoodOption.DELETE.value -> {
                         viewModel.deleteUserById(food.id)

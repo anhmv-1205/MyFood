@@ -70,6 +70,17 @@ interface MyFoodApi {
     @PUT("/foods/{foodId}")
     suspend fun updateFood(@Path("foodId") foodId: String, @Body updateFoodRequest: UpdateFoodRequest): ApiResponse<Food>
 
+    @Multipart
+    @PUT("/foods/{foodId}")
+    suspend fun editFood(
+        @Path("foodId") foodId: String,
+        @Part("categoryId") categoryId: RequestBody,
+        @Part file: MultipartBody.Part?,
+        @Part("name") name: RequestBody,
+        @Part("cost") cost: RequestBody,
+        @Part("unit") unit: RequestBody
+    ): ApiResponse<Food>
+
     // Order
     @POST("order")
     suspend fun createOrder(@Body createOrderRequest: CreateOrderRequest): ApiResponse<Order>

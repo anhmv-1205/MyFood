@@ -6,6 +6,7 @@ import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
 import okhttp3.MultipartBody
+import okhttp3.MultipartBody.Part
 import okhttp3.RequestBody
 import org.koin.core.KoinComponent
 
@@ -29,4 +30,13 @@ class FoodRemoteDataSource(private val myFoodApi: MyFoodApi) : FoodDataSource.Re
         foodId: String,
         updateFoodRequest: UpdateFoodRequest
     ) = myFoodApi.updateFood(foodId, updateFoodRequest)
+
+    override suspend fun editFood(
+        foodId: String,
+        categoryId: RequestBody,
+        file: Part?,
+        name: RequestBody,
+        cost: RequestBody,
+        unit: RequestBody
+    ) = myFoodApi.editFood(foodId, categoryId, file, name, cost, unit)
 }

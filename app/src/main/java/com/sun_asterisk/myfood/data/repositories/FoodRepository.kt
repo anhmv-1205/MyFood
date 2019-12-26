@@ -30,4 +30,13 @@ class FoodRepository(private val remote: FoodRemoteDataSource) : FoodDataSource.
         foodId: String,
         updateFoodRequest: UpdateFoodRequest
     ) = remote.updateFood(foodId, updateFoodRequest)
+
+    override suspend fun editFood(
+        foodId: String,
+        categoryId: RequestBody,
+        file: MultipartBody.Part?,
+        name: RequestBody,
+        cost: RequestBody,
+        unit: RequestBody
+    ) = remote.editFood(foodId, categoryId, file, name, cost, unit)
 }

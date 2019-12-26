@@ -17,8 +17,8 @@ import com.sun_asterisk.myfood.utils.extension.replaceIpAddress
 import com.sun_asterisk.myfood.utils.extension.setStatusOfOrder
 import com.sun_asterisk.myfood.utils.extension.setStatusTextColor
 import com.sun_asterisk.myfood.utils.extension.toDateWithFormat
-import kotlinx.android.synthetic.main.item_order.view.imageViewFood
-import kotlinx.android.synthetic.main.item_order.view.textViewFoodName
+import kotlinx.android.synthetic.main.item_order.view.imageViewFoodOfOrder
+import kotlinx.android.synthetic.main.item_order.view.textViewFoodNameOfOrder
 import kotlinx.android.synthetic.main.item_order.view.textViewStatus
 import kotlinx.android.synthetic.main.item_order.view.textViewTimeBuy
 import java.util.Locale
@@ -70,6 +70,15 @@ class OrdersAdapter(context: Context, dataList: MutableList<Order>) :
         notifyItemRangeChanged(position, 1)
     }
 
+    fun updateOrder(order: Order) {
+        val position = dataList.find { item -> order.id == item.id }?.let {
+            dataList.indexOf(it)
+        }
+        if (position == null || position < 0 || position >= dataList.size) return
+        dataList[position].status = order.status
+        notifyItemRangeChanged(position, 1)
+    }
+
     private fun setAnimation(view: View, position: Int) {
         if (position > lastPosition) {
             val animation = AnimationUtils.loadAnimation(context, R.anim.from_right)
@@ -95,7 +104,7 @@ class OrdersAdapter(context: Context, dataList: MutableList<Order>) :
 
             fun bindData(order: Order) {
                 itemView.run {
-                    itemView.textViewFoodName.text = order.food.name
+                    itemView.textViewFoodNameOfOrder.text = order.food.name
                     itemView.textViewTimeBuy.text = context.getString(
                         R.string.text_time_buy_and_shift, order.date_buy.toDateWithFormat(
                             Constant.DATETIME_FORMAT_YYYY_MM_DD,
@@ -104,7 +113,7 @@ class OrdersAdapter(context: Context, dataList: MutableList<Order>) :
                     )
                     itemView.textViewStatus.setStatusOfOrder(order.status)
                     itemView.textViewStatus.setStatusTextColor(order.status)
-                    itemView.imageViewFood.loadImageUrl(order.food.imgUrl.replaceIpAddress())
+                    itemView.imageViewFoodOfOrder.loadImageUrl(order.food.imgUrl.replaceIpAddress())
                     setOnClickListener { listener?.onItemViewClick(order, adapterPosition) }
                 }
             }

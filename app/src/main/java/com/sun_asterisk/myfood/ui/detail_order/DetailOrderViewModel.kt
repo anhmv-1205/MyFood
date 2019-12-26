@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
+import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
 import com.sun_asterisk.myfood.data.repositories.OrderRepository
 import com.sun_asterisk.myfood.data.repositories.UserRepository
 import com.sun_asterisk.myfood.utils.livedata.SingleLiveEvent
@@ -23,6 +24,8 @@ class DetailOrderViewModel(private val userRepository: UserRepository, private v
     val onMessageErrorEvent: SingleLiveEvent<String> by lazy { SingleLiveEvent<String>() }
 
     val onProgressDialogEvent: SingleLiveEvent<Boolean> by lazy { SingleLiveEvent<Boolean>() }
+
+    val onCreateOrderEvent: SingleLiveEvent<Order> by lazy { SingleLiveEvent<Order>() }
 
     fun getFarmerOrBuyer(userId: String) {
         coroutineScope.launch(Dispatchers.Main) {
@@ -77,6 +80,27 @@ class DetailOrderViewModel(private val userRepository: UserRepository, private v
                 onMessageErrorEvent.value = ex.message
             }
             onProgressDialogEvent.value = false
+        }
+    }
+
+    fun createOrder(createOrderRequest: CreateOrderRequest) {
+        coroutineScope.launch(Dispatchers.Main) {
+            onProgressDialogEvent.value = true
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    orderRepository.createOrder(createOrderRequest)
+                }
+                if (result.data == null) {
+                    onMessageErrorEvent.value = result.message
+                    onProgressDialogEvent.value = false
+                    return@launch
+                }
+                onCreateOrderEvent.value = result.data
+                onProgressDialogEvent.value = false
+            } catch (ex: java.lang.Exception) {
+                onProgressDialogEvent.value = false
+                onMessageErrorEvent.value = ex.message
+            }
         }
     }
 }
