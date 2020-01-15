@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_8"
+    android:elevation="@dimen/dp_5"
+    android:padding="@dimen/dp_8"
+    app:cardCornerRadius="@dimen/dp_8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewCommenter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:fontFamily="@font/nexabold"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTimeComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="@id/textViewCommenter"
+            app:layout_constraintTop_toBottomOf="@id/textViewCommenter" />
+
+        <TextView
+            android:id="@+id/textViewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:textColor="@color/colorGreen500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="@id/textViewCommenter"
+            app:layout_constraintTop_toBottomOf="@id/textViewTimeComment" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:numStars="5"
+            android:theme="@style/RatingBar"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewRating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewRating"
+            app:layout_constraintTop_toTopOf="@+id/textViewRating" />
+
+        <TextView
+            android:id="@+id/textViewContentComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@drawable/bg_white_border_grey_with_radius"
+            android:fontFamily="@font/nexalight"
+            android:gravity="top|start"
+            android:padding="@dimen/dp_8"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textViewCommenter"
+            app:layout_constraintStart_toStartOf="@id/textViewCommenter"
+            app:layout_constraintTop_toBottomOf="@id/textViewRating" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

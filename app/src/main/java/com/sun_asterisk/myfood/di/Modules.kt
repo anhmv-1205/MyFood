@@ -9,12 +9,15 @@ import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.repositories.CategoryRepository
+import com.sun_asterisk.myfood.data.repositories.CommentRepository
 import com.sun_asterisk.myfood.data.repositories.FoodRepository
 import com.sun_asterisk.myfood.data.repositories.OrderRepository
 import com.sun_asterisk.myfood.data.repositories.TokenRepository
 import com.sun_asterisk.myfood.data.repositories.UserRepository
 import com.sun_asterisk.myfood.ui.category.CategoryFragment
 import com.sun_asterisk.myfood.ui.category.CategoryViewModel
+import com.sun_asterisk.myfood.ui.comment.CommentFragment
+import com.sun_asterisk.myfood.ui.comment.CommentViewModel
 import com.sun_asterisk.myfood.ui.create_food.CreateFoodFragment
 import com.sun_asterisk.myfood.ui.create_food.CreateFoodViewModel
 import com.sun_asterisk.myfood.ui.detail_order.DetailOrderFragment
@@ -51,6 +54,7 @@ var applicationModule = module {
     single { TokenRepository(get()) }
     single { CategoryRepository(get()) }
     single { OrderRepository(get()) }
+    single { CommentRepository(get()) }
 
     // fragments
     factory { SplashFragment() }
@@ -66,6 +70,7 @@ var applicationModule = module {
     factory { (categories: ArrayList<Category>) -> CreateFoodFragment.newInstance(categories) }
     factory { RegisterFragment() }
     factory { (food: Food, categories: ArrayList<Category>) -> EditFoodFragment.newInstance(food, categories) }
+    factory { (farmerId: String, nameFarmer: String) -> CommentFragment.newInstance(farmerId, nameFarmer) }
 
     // ViewModel
     viewModel { CategoryViewModel(get()) }
@@ -74,13 +79,14 @@ var applicationModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { OrdersViewModel(get()) }
-    viewModel { DetailOrderViewModel(get(), get()) }
+    viewModel { DetailOrderViewModel(get(), get(), get()) }
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { FarmerFoodViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { CreateFoodViewModel(get(), get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { EditFoodViewModel(get()) }
+    viewModel { CommentViewModel(get()) }
 
     // others
     single { SharedPrefsImpl(androidContext()) }

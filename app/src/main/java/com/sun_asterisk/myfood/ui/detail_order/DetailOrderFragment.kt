@@ -1,5 +1,6 @@
 package com.sun_asterisk.myfood.ui.detail_order
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -8,17 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.EditText
+import android.widget.RatingBar
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
-import com.sun_asterisk.myfood.base.recyclerview.OnRefreshItemListener
 import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
+import com.sun_asterisk.myfood.data.remote.request.RatingRequest
 import com.sun_asterisk.myfood.ui.main.OnActionBarListener
 import com.sun_asterisk.myfood.utils.Constant
 import com.sun_asterisk.myfood.utils.annotation.OrderStatus
@@ -199,6 +203,11 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener, 
             }
         })
 
+        viewModel.onCreateCommentEvent.observe(this, Observer {
+            if (it) context?.showToast(getString(R.string.text_rating_success))
+            dialogManager?.hideLoading()
+        })
+
         viewModel.onProgressDialogEvent.observe(this, Observer {
             //            if (it) dialogManager?.showLoading()
 //            else dialogManager?.hideLoading()
@@ -207,6 +216,7 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener, 
         viewModel.onMessageErrorEvent.observe(this, Observer {
             swipeDetailOrder.isRefreshing = false
             context?.showToast(it)
+            dialogManager?.hideLoading()
         })
     }
 
@@ -327,6 +337,7 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener, 
             }
 
             R.id.textViewRate -> {
+                showAlertDialogRating()
             }
             R.id.imageViewPhone -> {
                 partner?.let {
@@ -437,6 +448,49 @@ class DetailOrderFragment : BaseFragment(), OnClickListener, OnRefreshListener, 
 
     private fun validateForm(): Boolean {
         return this::dateBuy.isInitialized && dateBuy.isNotEmpty()
+    }
+
+    private fun showAlertDialogRating(
+
+    ) {
+        val builder = AlertDialog.Builder(context!!)
+        val itemView = LayoutInflater.from(context!!).inflate(R.layout.layout_rating_user, null)
+        val ratingBar: RatingBar = itemView.findViewById(R.id.rattingBarComment)
+        val editText: EditText = itemView.findViewById(R.id.editTextComment)
+        builder.setView(itemView)
+        builder.setNegativeButton(getString(R.string.text_cancel)) { dialog, which ->
+            dialog?.dismiss()
+        }
+        val shake = AnimationUtils.loadAnimation(context!!, R.anim.shake)
+        builder.setPositiveButton(getString(R.string.text_send), null)
+        val dialog = builder.setCancelable(true).create()
+        dialog.setOnShowListener { dialogInterface ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                if (ratingBar.rating.toInt() == 0) {
+                    ratingBar.startAnimation(shake)
+                    return@setOnClickListener
+                }
+                if (editText.text.toString().trim().isEmpty()) {
+                    editText.startAnimation(shake)
+                    return@setOnClickListener
+                }
+                order?.let {
+                    val ratingRequest = RatingRequest(
+                        it.sellerId,
+                        it.buyerId,
+                        it.foodId,
+                        ratingBar.rating.toInt(),
+                        editText.text.toString().trim(),
+                        it.id
+                    )
+                    viewModel.createRating(ratingRequest)
+                    dialogManager?.showLoading()
+                }
+                dialogInterface.dismiss()
+            }
+        }
+
+        dialog.show()
     }
 
     companion object {

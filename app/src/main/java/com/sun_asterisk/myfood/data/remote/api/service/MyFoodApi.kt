@@ -1,10 +1,12 @@
 package com.sun_asterisk.myfood.data.remote.api.service
 
 import com.sun_asterisk.myfood.data.model.Category
+import com.sun_asterisk.myfood.data.model.Comment
 import com.sun_asterisk.myfood.data.model.Food
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
+import com.sun_asterisk.myfood.data.remote.request.RatingRequest
 import com.sun_asterisk.myfood.data.remote.request.RegisterRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.data.remote.request.UpdateFoodRequest
@@ -12,6 +14,7 @@ import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.FoodResponse
 import com.sun_asterisk.myfood.data.remote.response.OrderResponse
 import com.sun_asterisk.myfood.data.remote.response.SignInResponse
+import com.sun_asterisk.myfood.data.remote.response.UserInfornationResponse
 import com.sun_asterisk.myfood.utils.Constant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,6 +49,9 @@ interface MyFoodApi {
 
     @POST("register")
     suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<User>
+
+    @GET("users/information/{userId}")
+    suspend fun getUserInformationRelatedFood(@Path("userId") userId: String): ApiResponse<UserInfornationResponse>
 
     // Food
     @GET("foods/{userId}")
@@ -93,4 +99,11 @@ interface MyFoodApi {
 
     @PUT("order/{orderId}")
     suspend fun updateOrderStatus(@Path("orderId") orderId: String, @Query("toStatus") toStatus: String): ApiResponse<Order>
+
+    // Comment
+    @POST("comment")
+    suspend fun createComment(@Body ratingRequest: RatingRequest): ApiResponse<Any>
+
+    @GET("comment/{farmerId}")
+    suspend fun getCommentsByFarmerId(@Path("farmerId") farmerId: String): ApiResponse<ArrayList<Comment>>
 }

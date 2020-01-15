@@ -5,6 +5,7 @@ import com.sun_asterisk.myfood.data.local.localdatasource.UserLocalDataSource
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefApi
 import com.sun_asterisk.myfood.data.local.sharedprf.SharedPrefsImpl
 import com.sun_asterisk.myfood.data.remote.remotedatasource.CategoryRemoteDataSource
+import com.sun_asterisk.myfood.data.remote.remotedatasource.CommentRemoteDataSource
 import com.sun_asterisk.myfood.data.remote.remotedatasource.FoodRemoteDataSource
 import com.sun_asterisk.myfood.data.remote.remotedatasource.OrderRemoteDataSource
 import com.sun_asterisk.myfood.data.remote.remotedatasource.UserRemoteDataSource
@@ -17,6 +18,7 @@ val dataSourceModule = module {
     single { provideSharedPrefApi(get()) }
     single { FoodRemoteDataSource(get()) }
     single { OrderRemoteDataSource(get()) }
+    single { CommentRemoteDataSource(get()) }
 }
 
 fun provideUserLocalDataSource(sharedPrefApi: SharedPrefApi, appDatabase: AppDatabase): UserLocalDataSource {

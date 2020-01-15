@@ -79,6 +79,18 @@
             app:layout_constraintVertical_bias="0.25" />
 
         <TextView
+            android:id="@+id/textViewGotoRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_go_to_rating"
+            android:textColor="@color/colorRed500"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintEnd_toEndOf="@id/ratingBar"
+            app:layout_constraintStart_toStartOf="@id/textViewRating"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+
+        <TextView
             android:id="@+id/textViewTitleDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +124,7 @@
             app:layout_constraintBottom_toBottomOf="@id/textViewDistance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewGotoRating" />
 
         <TextView
             android:id="@+id/textViewTitlePost"

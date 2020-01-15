@@ -32,4 +32,6 @@ class UserRepository(
     override suspend fun getUserByUserId(userId: String) = remote.getUserByUserId(userId)
 
     override suspend fun register(registerRequest: RegisterRequest) = remote.register(registerRequest)
+
+    override suspend fun getUserInformationRelatedFood(userId: String) = remote.getUserInformationRelatedFood(userId)
 }

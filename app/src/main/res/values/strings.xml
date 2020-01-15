@@ -6,6 +6,7 @@
     <string name="go_to">Xem</string>
     <string name="logo_my_food">y Food</string>
     <string name="text_cancel">Hủy</string>
+    <string name="text_send">Gởi</string>
     <string name="text_ok">Đồng ý</string>
     <string name="text_detail">Chi tiết</string>
     <string name="text_distance">Khoảng cách</string>
@@ -30,6 +31,7 @@
     <string name="text_order_food">Đặt thực phẩm</string>
     <string name="text_note_order">Ghi chú thêm</string>
     <string name="text_hint_note_create_order">Thêm ghi chú cho người bán …</string>
+    <string name="text_comment">Thêm đánh giá cho người bán …</string>
     <string name="text_title_time_buy">Thời gian đến: <font fgcolor='#B2B1B2'>( &#706; 9am, &#706; 15pm)</font></string>
     <string name="text_time_hint">DD / MM / YYYY</string>
     <string name="text_time_format">dd / MM / yyyy</string>
@@ -55,7 +57,7 @@
     <string name="text_reject">Từ chối</string>
     <string name="text_done">Hoàn tất</string>
     <string name="text_reorder">Đặt lại</string>
-    <string name="text_share_rate">Chia sẻ cảm nhận</string>
+    <string name="text_share_rate">Đánh giá</string>
     <string name="text_go_to">Đi đến</string>
     <string name="text_information_order">Thông tin đơn hàng</string>
     <string name="text_date_created_order">Đặt hàng vào lúc: %1$s</string>
@@ -105,6 +107,10 @@
     <string name="text_edit">\t Sửa</string>
     <string name="text_delete">\t Xóa</string>
     <string name="text_request_location">Bạn cần cung cấp quyền truy cập vị trí để trở thành người bán?</string>
+    <string name="text_rating">Đánh giá</string>
+    <string name="text_rating_success">Đánh giá thành công!</string>
+    <string name="text_go_to_rating"><u>Xem đánh giá</u></string>
+    <string name="text_title_toolbar_comment">Đánh giá về sản phẩm của \n %1$s</string>
 
 
     <string-array name="imageOptions">

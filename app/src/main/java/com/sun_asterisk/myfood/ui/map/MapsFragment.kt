@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sun_asterisk.myfood.R
 import com.sun_asterisk.myfood.base.BaseFragment
 import com.sun_asterisk.myfood.data.model.User
+import com.sun_asterisk.myfood.ui.comment.CommentFragment
 import com.sun_asterisk.myfood.ui.foods.FoodsFragment
 import com.sun_asterisk.myfood.ui.main.OnActionBarListener
 import com.sun_asterisk.myfood.utils.extension.addDistanceUnits
@@ -129,7 +130,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
                 item.location?.let { loc ->
                     val location = LatLng(loc[0].toDouble(), loc[1].toDouble())
                     val marker = map.addMarker(
-                        MarkerOptions().position(location).title(getAddress(location)).icon(
+                        MarkerOptions().position(location).icon(
                             bitmapDescriptorFromVector(context!!, R.drawable.ic_farmer)
                         )
                     )
@@ -139,7 +140,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         })
 
         viewModel.onGetNumbersOfFoodByUserId.observe(this, Observer {
-            it?.let { showDialog(it) }
+            //it?.let { showDialog(it) }
+        })
+
+        viewModel.onUserInformationEvent.observe(this, Observer {
+            showDialog(it.count, it.rate)
         })
 
         viewModel.onMessageError.observe(this, Observer {
@@ -299,11 +304,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         if (isMultiClick()) return false
         if (marker == this.marker) return false
         farmer = farmers[markersFarmer.indexOf(marker)]
-        viewModel.getNumbersFoodByUserId(farmer.id)
+        viewModel.getUserInformationRelatedFood(farmer.id)
         return false
     }
 
-    private fun showDialog(numbersOfFood: Int) {
+    private fun showDialog(numbersOfFood: Int, rating: Int) {
         val result = floatArrayOf(1F)
         Location.distanceBetween(
             myLocation.latitude,
@@ -324,10 +329,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         val buttonCancel = dialogView.findViewById<Button>(R.id.buttonCancel)
         val buttonDetail = dialogView.findViewById<Button>(R.id.buttonDetail)
         val textViewPost = dialogView.findViewById<TextView>(R.id.textViewPost)
+        val textViewGotoRating = dialogView.findViewById<TextView>(R.id.textViewGotoRating)
 
         textViewName.text = farmer.name
-        textViewRating.text = "4.5"
-        ratingBar.rating = 4.5F
+        textViewRating.text = rating.toString()
+        ratingBar.rating = rating.toFloat()
         textViewDistance.text = ceil((result[0] / 1000).toDouble()).toString().addDistanceUnits()
         textViewPost.text = numbersOfFood.toString()
         buttonCancel.setOnClickListener { alertDialog.dismiss() }
@@ -335,6 +341,11 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
             val foodsFragment: FoodsFragment by inject { parametersOf(farmer) }
             alertDialog.dismiss()
             addFragmentToActivity(R.id.containerMain, foodsFragment, true, FoodsFragment::class.java.simpleName)
+        }
+        textViewGotoRating.setOnClickListener {
+            val commentFragment: CommentFragment by inject { parametersOf(farmer.id, farmer.name) }
+            addFragmentToActivity(R.id.containerMain, commentFragment, true, CommentFragment::class.java.simpleName)
+            alertDialog.dismiss()
         }
 
         alertDialog.setView(dialogView)
@@ -358,7 +369,7 @@ class MapsFragment : BaseFragment(), OnMapReadyCallback, OnMarkerClickListener {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
         private const val PLACE_PICKER_REQUEST = 3
-        private const val DEFAULT_ZOOM = 8f
+        private const val DEFAULT_ZOOM = 10f
         private const val MAX_RESULTS = 1
         private const val INTERVAL = 10000L
         private const val FASTEST_INTERVAL = 5000L

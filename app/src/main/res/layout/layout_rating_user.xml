@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewTitleRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLogo"
+        android:fontFamily="@font/nexabold"
+        android:gravity="center"
+        android:padding="@dimen/dp_12"
+        android:text="@string/text_rating"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/rattingBarComment"
+        style="?android:attr/ratingBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorRed500"
+        android:numStars="5"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:stepSize="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitleRating" />
+
+    <EditText
+        android:id="@+id/editTextComment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:background="@drawable/bg_white_border_grey_with_radius"
+        android:fontFamily="@font/nexalight"
+        android:gravity="top|start"
+        android:hint="@string/text_comment"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/colorGrey500"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintDimensionRatio="4:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rattingBarComment" />
+</androidx.constraintlayout.widget.ConstraintLayout>

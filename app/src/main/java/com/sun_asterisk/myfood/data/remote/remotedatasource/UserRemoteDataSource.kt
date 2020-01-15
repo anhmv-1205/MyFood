@@ -6,6 +6,7 @@ import com.sun_asterisk.myfood.data.remote.api.service.MyFoodApi
 import com.sun_asterisk.myfood.data.remote.request.RegisterRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
+import com.sun_asterisk.myfood.data.remote.response.UserInfornationResponse
 import org.koin.core.KoinComponent
 
 class UserRemoteDataSource(private val api: MyFoodApi) : UserDataSource.Remote, KoinComponent {
@@ -19,4 +20,6 @@ class UserRemoteDataSource(private val api: MyFoodApi) : UserDataSource.Remote, 
     override suspend fun getUserByUserId(userId: String) = api.getUserByUserId(userId)
 
     override suspend fun register(registerRequest: RegisterRequest) = api.register(registerRequest)
+
+    override suspend fun getUserInformationRelatedFood(userId: String) = api.getUserInformationRelatedFood(userId)
 }

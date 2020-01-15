@@ -5,6 +5,8 @@ import com.sun_asterisk.myfood.base.BaseViewModel
 import com.sun_asterisk.myfood.data.model.Order
 import com.sun_asterisk.myfood.data.model.User
 import com.sun_asterisk.myfood.data.remote.request.CreateOrderRequest
+import com.sun_asterisk.myfood.data.remote.request.RatingRequest
+import com.sun_asterisk.myfood.data.repositories.CommentRepository
 import com.sun_asterisk.myfood.data.repositories.OrderRepository
 import com.sun_asterisk.myfood.data.repositories.UserRepository
 import com.sun_asterisk.myfood.utils.livedata.SingleLiveEvent
@@ -12,7 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailOrderViewModel(private val userRepository: UserRepository, private val orderRepository: OrderRepository) :
+class DetailOrderViewModel(
+    private val userRepository: UserRepository,
+    private val orderRepository: OrderRepository,
+    private val commentRepository: CommentRepository
+) :
     BaseViewModel() {
 
     val onOwnerEvent: LiveData<User> = userRepository.getUser()
@@ -26,6 +32,8 @@ class DetailOrderViewModel(private val userRepository: UserRepository, private v
     val onProgressDialogEvent: SingleLiveEvent<Boolean> by lazy { SingleLiveEvent<Boolean>() }
 
     val onCreateOrderEvent: SingleLiveEvent<Order> by lazy { SingleLiveEvent<Order>() }
+
+    val onCreateCommentEvent: SingleLiveEvent<Boolean> by lazy { SingleLiveEvent<Boolean>() }
 
     fun getFarmerOrBuyer(userId: String) {
         coroutineScope.launch(Dispatchers.Main) {
@@ -99,6 +107,23 @@ class DetailOrderViewModel(private val userRepository: UserRepository, private v
                 onProgressDialogEvent.value = false
             } catch (ex: java.lang.Exception) {
                 onProgressDialogEvent.value = false
+                onMessageErrorEvent.value = ex.message
+            }
+        }
+    }
+
+    fun createRating(ratingRequest: RatingRequest) {
+        coroutineScope.launch(Dispatchers.Main) {
+            try {
+                val rs = withContext(Dispatchers.IO) {
+                    commentRepository.createComment(ratingRequest)
+                }
+                if (rs.data == null) {
+                    onMessageErrorEvent.value = rs.message
+                    return@launch
+                }
+                onCreateCommentEvent.value = true
+            } catch (ex: Exception) {
                 onMessageErrorEvent.value = ex.message
             }
         }

@@ -6,6 +6,7 @@ import com.sun_asterisk.myfood.data.remote.request.RegisterRequest
 import com.sun_asterisk.myfood.data.remote.request.SignInRequest
 import com.sun_asterisk.myfood.data.remote.response.ApiResponse
 import com.sun_asterisk.myfood.data.remote.response.SignInResponse
+import com.sun_asterisk.myfood.data.remote.response.UserInfornationResponse
 
 interface UserDataSource {
     interface Local {
@@ -30,5 +31,7 @@ interface UserDataSource {
         suspend fun getUserByUserId(userId: String): ApiResponse<User>
 
         suspend fun register(registerRequest: RegisterRequest): ApiResponse<User>
+
+        suspend fun getUserInformationRelatedFood(userId: String): ApiResponse<UserInfornationResponse>
     }
 }
